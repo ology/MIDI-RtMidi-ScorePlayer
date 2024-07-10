@@ -136,7 +136,7 @@ sub _sync_parts {
     my ($self) = @_;
     my @parts;
     my $n = 1;
-    push @parts, $_->(%{ $self->{common} }, _part => $n++) 
+    push @parts, $_->(%{ $self->{common} }, _part => $n++)
         for @{ $self->{parts} };
     $self->{score}->synch(@parts) # Play the parts simultaneously
         for 1 .. $self->{repeats};
