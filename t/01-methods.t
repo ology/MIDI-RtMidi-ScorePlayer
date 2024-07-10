@@ -4,7 +4,6 @@ use warnings;
 
 use Test::More;
 use Test::Exception;
-use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(MIDI-Util);
 use MIDI::Util qw(setup_score);
 
 use_ok 'MIDI::RtMidi::ScorePlayer';
