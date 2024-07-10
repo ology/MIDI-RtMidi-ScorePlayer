@@ -21,10 +21,9 @@ use Time::HiRes qw(usleep);
   my %common = ( score => $score, seen => {}, etc => '...', );
 
   sub treble {
-      my (%args) = @_;
       my $treble = sub {
           ...; # Add notes or rests to the score
-      }
+      };
       return $treble;
   }
   sub bass {
