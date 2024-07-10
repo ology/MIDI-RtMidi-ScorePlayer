@@ -16,9 +16,9 @@ use Time::HiRes qw(usleep);
 =head1 SYNOPSIS
 
   use MIDI::RtMidi::ScorePlayer ();
-  use MIDI::Simple ();
+  use MIDI::Util qw(setup_score);
 
-  my $score = MIDI::Simple->new_score;
+  my $score = setup_score();
 
   my %common = ( score => $score, seen => {}, etc => '...', );
 
