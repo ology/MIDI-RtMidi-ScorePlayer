@@ -33,7 +33,7 @@ use Time::HiRes qw(usleep);
   MIDI::RtMidi::ScorePlayer->new(
       score    => $score, # required MIDI score object
       parts    => [ \&treble, \&bass ], # required part functions
-      common   => \%common, # optional arguments given to the part functions
+      common   => \%common, # arguments given to the part functions
       repeats  => 4, # number of repeated synched parts (default: 1)
       sleep    => 2, # number of seconds to sleep between loops (default: 1)
       loop     => 4, # loop limit if finite (default: 1)
