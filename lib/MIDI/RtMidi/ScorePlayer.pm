@@ -94,24 +94,33 @@ Play a given MIDI score in real-time.
 
 sub play {
     my ($self) = @_;
-    for (1 .. $self->{loop}) {
-        $self->_sync_parts;
-        my $micros = get_microseconds($self->{score});
-        my $events = score2events($self->{score});
-        for my $event (@$events) {
-            next if $event->[0] =~ /set_tempo|time_signature/;
-            if ( $event->[0] eq 'text_event' ) {
-                printf "%s\n", $event->[-1];
-                next;
-            }
-            my $useconds = $micros * $event->[1];
-            usleep($useconds) if $useconds > 0 && $useconds < 1_000_000;
-            $self->{device}->send_event( $event->[0] => @{ $event }[ 2 .. $#$event ] );
+    if ($self->{infinite}) {
+        while (1) {
+            $self->_play;
         }
-        sleep($self->{sleep});
-        $self->_reset_score;
-        redo if $self->{infinite}; # Are we an infinite loop?
     }
+    else {
+        $self->_play for 1 .. $self->{loop};
+    }
+}
+
+sub _play {
+    my ($self) = @_;
+    $self->_sync_parts;
+    my $micros = get_microseconds($self->{score});
+    my $events = score2events($self->{score});
+    for my $event (@$events) {
+        next if $event->[0] =~ /set_tempo|time_signature/;
+        if ( $event->[0] eq 'text_event' ) {
+            printf "%s\n", $event->[-1];
+            next;
+        }
+        my $useconds = $micros * $event->[1];
+        usleep($useconds) if $useconds > 0 && $useconds < 1_000_000;
+        $self->{device}->send_event( $event->[0] => @{ $event }[ 2 .. $#$event ] );
+    }
+    sleep($self->{sleep});
+    $self->_reset_score;
 }
 
 # This manipulates internals of MIDI::Score objects and
