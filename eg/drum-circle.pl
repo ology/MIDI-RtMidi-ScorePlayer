@@ -2,16 +2,12 @@
 use strict;
 use warnings;
 
-use if $ENV{USER} eq 'gene', lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(MIDI-Util MIDI-Drummer-Tiny Music-Duration-Partition);
-use if $ENV{USER} eq 'gene', lib => map { "$ENV{HOME}/repos/$_/lib" } qw(MIDI-RtMidi-FFI);
-
-# Adapted from 'drum-circle' by Gene Boggs
-# https://github.com/ology/Music
+use if $ENV{USER} eq 'gene', lib => map { "$ENV{HOME}/sandbox/$_/lib" } qw(MIDI-Util MIDI-Drummer-Tiny Music-Duration-Partition MIDI-RtMidi-ScorePlayer);
 
 use Data::Dumper::Compact qw(ddc);
 use Getopt::Long qw(GetOptions);
 use MIDI::Drummer::Tiny ();
-use MIDI::RtMidi::FFI::ScorePlayer ();
+use MIDI::RtMidi::ScorePlayer ();
 use MIDI::Util qw(midi_dump ticks);
 use Music::Duration::Partition ();
 use Pod::Usage qw(pod2usage);
