@@ -157,6 +157,8 @@ __END__
 
 The informative comments in the source of this module!
 
+The F<eg/*> files in this distribution.
+
 L<MIDI::RtMidi::FFI::Device>
 
 L<MIDI::Util>
