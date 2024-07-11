@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Fix eg/ programs.
 
 0.0103 2024-07-10 18:01:33
     - Include the forgotten eg/* example programs.
