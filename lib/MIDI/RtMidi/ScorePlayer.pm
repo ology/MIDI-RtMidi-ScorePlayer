@@ -21,8 +21,11 @@ use Time::HiRes qw(usleep);
   my %common = ( score => $score, seen => {}, etc => '...', );
 
   sub treble {
+      my (%args) = @_;
+      ...; # Setup things
       my $treble = sub {
-          ...; # Add notes or rests to the score
+          $args{score}->n('...');
+          ...; # See MIDI::Simple for the n() & r() methods
       };
       return $treble;
   }
