@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Include the forgotten eg/* example programs.
 
 0.0102 2024-07-10 17:27:34
     - Don't stuff notes onto the score when testing.
