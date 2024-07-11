@@ -1,6 +1,8 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+
+0.0101 2024-07-10 17:14:53
     - Fix the infinite/finite loop. dakar++
 
 0.0100 2024-07-10 16:50:22
