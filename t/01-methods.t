@@ -26,9 +26,7 @@ subtest defaults => sub {
 
 subtest play => sub {
     my $score = setup_score(lead_in => 0);
-    sub foo {
-        return sub {};
-    }
+    sub foo { return sub {} }
     my $p = new_ok 'MIDI::RtMidi::ScorePlayer' => [
         score    => $score,
         parts    => [ \&foo ],
