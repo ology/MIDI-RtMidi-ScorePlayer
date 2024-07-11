@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Don't stuff notes onto the score when testing.
 
 0.0101 2024-07-10 17:14:53
     - Fix the infinite/finite loop. dakar++
