@@ -25,7 +25,7 @@ subtest defaults => sub {
 };
 
 subtest play => sub {
-    my $score = setup_score();
+    my $score = setup_score(lead_in => 0);
     sub foo {
         return sub {};
     }
