@@ -117,7 +117,7 @@ sub part {
 
 my @parts = (\&part) x $opts{drummers};
 
-MIDI::RtMidi::FFI::ScorePlayer->new(
+MIDI::RtMidi::ScorePlayer->new(
     score  => $d->score,
     parts  => \@parts,
     common => \%common,
