@@ -124,9 +124,7 @@ sub _play {
 }
 
 # This manipulates internals of MIDI::Score objects and
-# hashes used by drum-circle - doing this isn't a good
-# idea - skip to `sub play` to see the interesting piece
-# of this example.
+# hashes - doing this isn't a good idea.
 sub _reset_score {
     my ($self) = @_;
     # sorry
