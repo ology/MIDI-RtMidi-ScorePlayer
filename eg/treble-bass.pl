@@ -12,7 +12,7 @@ my $score = setup_score( bpm => 120 );
 
 my %common = ( score => $score );
 
-MIDI::RtMidi::FFI::ScorePlayer->new(
+MIDI::RtMidi::ScorePlayer->new(
   score    => $score,
   parts    => [ \&treble, \&bass ],
   common   => \%common,
