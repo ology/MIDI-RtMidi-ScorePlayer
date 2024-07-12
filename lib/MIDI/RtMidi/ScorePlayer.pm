@@ -48,6 +48,7 @@ use Time::HiRes qw(time usleep);
       loop     => 4, # loop limit if finite (default: 1)
       infinite => 0, # loop infinitely (default: 1)
       deposit  => 'path/prefix-', # optionally make a file after each loop
+			vebose   => 0, # show our progress (default: 1)
   )->play;
 
 =head1 DESCRIPTION
@@ -102,6 +103,7 @@ sub new {
     $opts{sleep}    //= 1;
     $opts{loop}     ||= 1;
     $opts{infinite} //= 1;
+    $opts{verbose}  //= 1;
     $opts{deposit}  ||= '';
     if ($opts{deposit}) {
         ($opts{prefix}, $opts{path}) = fileparse($opts{deposit});
@@ -145,7 +147,7 @@ sub _play {
     for my $event (@$events) {
         next if $event->[0] =~ /set_tempo|time_signature/;
         if ( $event->[0] eq 'text_event' ) {
-            printf "%s\n", $event->[-1];
+            printf "%s\n", $event->[-1] if $self->{verbose};
             next;
         }
         my $useconds = $micros * $event->[1];
