@@ -49,18 +49,20 @@ C<MIDI::RtMidi::ScorePlayer> plays a MIDI score in real-time.
 
 =head2 Hints
 
-B<Linux>: Timidity support requires timidity in daemon mode If your
-distro does not install a service, do: C<timidity -iAD>. Also,
-FluidSynth is an alternative to Timidity++
+B<Linux>: If your distro does not install a service, you can use
+timidity in daemon mode: C<timidity -iAD>. Also, FluidSynth is an
+alternative.
 
 B<MacOS>: You can get General MIDI via DLSMusicDevice within Logic or
 Garageband. You will need a soundfont containing drum patches in
 '~/Library/Audio/Sounds/Banks/' and DLSMusicDevice open in Garageband
-or Logic with this sound front selected. DLSMusicDevice should receive
-input from the virtual port opened below. See L<MIDI::RtMidi::FFI::Device>
-docs for more info. Alternatively you can use FluidSynth, like
+or Logic with this soundfrot selected. See the
+L<MIDI::RtMidi::FFI::Device> docs for more info. Alternatively you can
+use FluidSynth:
 C<fluidsynth -a coreaudio -m coremidi -g 1.0 ~/Music/some-soundfont.sf2>.
 Also, you can use C<timidity> too.
+
+For B<Windows>, this should I<just work> out of the box.
 
 =head1 METHODS
 
