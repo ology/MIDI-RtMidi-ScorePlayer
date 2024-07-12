@@ -107,6 +107,7 @@ sub new {
     $opts{deposit}  ||= '';
     if ($opts{deposit}) {
         ($opts{prefix}, $opts{path}) = fileparse($opts{deposit});
+        die "Invalid path: $opts{path}\n" unless -d $opts{path};
     }
 
     $opts{device} = RtMidiOut->new;
