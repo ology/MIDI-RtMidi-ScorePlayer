@@ -55,7 +55,7 @@ FluidSynth is an alternative to Timidity++
 
 B<MacOS>: You can get General MIDI via DLSMusicDevice within Logic or
 Garageband. You will need a soundfont containing drum patches in
-'~/Library/Audio/Sounds/Banks/' and DLSMusicDevice open in GarageBand
+'~/Library/Audio/Sounds/Banks/' and DLSMusicDevice open in Garageband
 or Logic with this sound front selected. DLSMusicDevice should receive
 input from the virtual port opened below. See L<MIDI::RtMidi::FFI::Device>
 docs for more info. Alternatively you can use FluidSynth, like
