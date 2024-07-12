@@ -151,8 +151,7 @@ sub _play {
     $self->_reset_score;
 }
 
-# This manipulates internals of MIDI::Score objects and
-# hashes - doing this isn't a good idea.
+# This manipulates internals of MIDI::Score things and doing this isn't a good idea
 sub _reset_score {
     my ($self) = @_;
     # sorry
@@ -190,4 +189,3 @@ L<MIDI::Util>
 L<Time::HiRes>
 
 =cut
-
