@@ -45,7 +45,7 @@ subtest deposit => sub {
         sleep    => 0,
         infinite => 0,
         deposit  => 'foo-',
-				verbose  => 0,
+        verbose  => 0,
     ];
     lives_ok { $p->play } 'expecting to live';
 		my @got = glob('foo-*.midi');
