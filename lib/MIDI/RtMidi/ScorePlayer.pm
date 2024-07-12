@@ -24,13 +24,17 @@ use Time::HiRes qw(usleep);
       my (%args) = @_;
       ...; # Setup things
       my $treble = sub {
-          $args{score}->n('...');
-          ...; # See MIDI::Simple for the n() & r() methods
+          if ($args{_part} % 2) {
+              $args{score}->n('...');
+          }
+          else {
+              $args{score}->r('...');
+          }
       };
       return $treble;
   }
   sub bass {
-      ...; # As above
+      ...; # As above but different!
   }
 
   MIDI::RtMidi::ScorePlayer->new(
@@ -46,6 +50,20 @@ use Time::HiRes qw(usleep);
 =head1 DESCRIPTION
 
 C<MIDI::RtMidi::ScorePlayer> plays a MIDI score in real-time.
+
+In order to use this module, create subroutines for simultaneous MIDI
+B<parts> that take a B<common> hash of named arguments. These parts
+each return an anonymous subroutine that tells MIDI-perl to build up a
+B<score>, by adding notes (C<n()>) and rests (C<r()>), etc. These
+musical operations are descibed in the L<MIDI> modules, like
+L<MIDI::Simple>.
+
+Besides being handed the B<common> arguments, each B<part> function
+gets a handy, increasing B<_part> number, starting at one, which can
+be used in the part functions.
+
+These parts are synch'd together, given the B<new> parameters that are
+descibed in the example above.
 
 =head2 Hints
 
@@ -86,21 +104,11 @@ sub new {
 
     $opts{device} = RtMidiOut->new;
 
-    # Linux: Timidity support requires timidity in daemon mode
-    # If your distro does not install a service, do: timidity -iAD
-    # FluidSynth is an alternative to Timidity++
     $opts{port} //= qr/wavetable|loopmidi|timidity|fluid/i;
 
-    # MacOS: You can get General MIDI via DLSMusicDevice within
-    # Logic or Garageband. You will need a soundfont containing
-    # drum patches in '~/Library/Audio/Sounds/Banks/'
-    # and DLSMusicDevice open in GarageBand / Logic with this
-    # sound front selected.
-    # DLSMusicDevice should receive input from the virtual port
-    # opened below.
-    # See MIDI::RtMidi::FFI::Device docs for more info.
+    # For MacOS, DLSMusicDevice should receive input from this virtual port:
     $opts{device}->open_virtual_port('dummy') if $^O eq 'darwin';
-    # Alternatively you can use FluidSynth
+
     $opts{device}->open_port_by_name($opts{port});
 
     bless \%opts, $class;
