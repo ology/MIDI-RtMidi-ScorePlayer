@@ -191,7 +191,7 @@ __END__
 
 =head1 SEE ALSO
 
-Examples are in the F<eg/*> files in this distribution.
+Examples are the F<eg/*> files in this distribution.
 
 L<MIDI::RtMidi::FFI::Device>
 
