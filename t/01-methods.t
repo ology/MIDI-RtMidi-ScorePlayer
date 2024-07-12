@@ -36,4 +36,19 @@ subtest play => sub {
     lives_ok { $p->play } 'expecting to live';
 };
 
+subtest deposit => sub {
+    my $score = setup_score(lead_in => 0);
+    my $foo = sub { return sub { $score->r('qn') } };
+    my $p = new_ok 'MIDI::RtMidi::ScorePlayer' => [
+        score    => $score,
+        parts    => [ $foo ],
+        sleep    => 0,
+        infinite => 0,
+        deposit  => 'foo-',
+    ];
+    lives_ok { $p->play } 'expecting to live';
+		my @got = glob('foo-*.midi');
+		ok -e $got[0], 'deposited';
+};
+
 done_testing();
