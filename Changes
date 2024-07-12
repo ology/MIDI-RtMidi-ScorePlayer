@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Die if the deposit path does not exist.
 
 0.0110 2024-07-11 22:25:03
     - Enable optional MIDI file saving after each loop.
