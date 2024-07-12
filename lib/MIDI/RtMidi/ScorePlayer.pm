@@ -154,7 +154,7 @@ sub _play {
     }
     if ($self->{deposit}) {
         my $filename = path($self->{path}, $self->{prefix} . time() . '.midi');
-        $self->{score}->write_score($filename);
+        $self->{score}->write_score("$filename");
     }
     sleep($self->{sleep});
     $self->_reset_score;
