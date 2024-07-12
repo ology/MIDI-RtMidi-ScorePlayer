@@ -48,10 +48,10 @@ subtest deposit => sub {
         verbose  => 0,
     ];
     lives_ok { $p->play } 'expecting to live';
-		my @got = glob('foo-*.midi');
-		ok -e $got[0], 'deposited';
-		unlink $got[0];
-		ok !-e $got[0], 'unlinked';
+    my @got = glob('foo-*.midi');
+    ok -e $got[0], 'deposited';
+    unlink $got[0];
+    ok !-e $got[0], 'unlinked';
 };
 
 done_testing();
