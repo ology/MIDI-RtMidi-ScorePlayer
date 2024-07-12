@@ -55,7 +55,7 @@ In order to use this module, create subroutines for simultaneous MIDI
 B<parts> that take a B<common> hash of named arguments. These parts
 each return an anonymous subroutine that tells MIDI-perl to build up a
 B<score>, by adding notes (C<n()>) and rests (C<r()>), etc. These
-musical operations are descibed in the L<MIDI> modules, like
+musical operations are described in the L<MIDI> modules, like
 L<MIDI::Simple>.
 
 Besides being handed the B<common> arguments, each B<part> function
@@ -63,7 +63,7 @@ gets a handy, increasing B<_part> number, starting at one, which can
 be used in the part functions.
 
 These parts are synch'd together, given the B<new> parameters that are
-descibed in the example above.
+described in the example above.
 
 =head2 Hints
 
