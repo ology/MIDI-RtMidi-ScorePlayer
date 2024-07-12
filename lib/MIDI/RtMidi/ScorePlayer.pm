@@ -18,7 +18,7 @@ use Time::HiRes qw(usleep);
 
   my $score = setup_score();
 
-  my %common = ( score => $score, seen => {}, etc => '...', );
+  my %common = (score => $score, seen => {}, etc => '...',);
 
   sub treble {
       my (%args) = @_;
