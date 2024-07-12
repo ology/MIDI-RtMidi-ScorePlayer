@@ -56,7 +56,7 @@ alternative.
 B<MacOS>: You can get General MIDI via DLSMusicDevice within Logic or
 Garageband. You will need a soundfont containing drum patches in
 '~/Library/Audio/Sounds/Banks/' and DLSMusicDevice open in Garageband
-or Logic with this soundfrot selected. See the
+or Logic with this soundfont selected. See the
 L<MIDI::RtMidi::FFI::Device> docs for more info. Alternatively you can
 use FluidSynth:
 C<fluidsynth -a coreaudio -m coremidi -g 1.0 ~/Music/some-soundfont.sf2>.
