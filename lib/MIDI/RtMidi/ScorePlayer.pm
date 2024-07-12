@@ -60,10 +60,9 @@ L<MIDI::Simple>.
 
 Besides being handed the B<common> arguments, each B<part> function
 gets a handy, increasing B<_part> number, starting at one, which can
-be used in the part functions.
+be used in the part functions. These parts are synch'd together, given
+the B<new> parameters that are described in the example above.
 
-These parts are synch'd together, given the B<new> parameters that are
-described in the example above.
 
 =head2 Hints
 
