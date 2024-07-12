@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Awe crap. Moo was listed as a prereq. Whoops
 
 0.0108 2024-07-11 20:31:02
     - Improve documentation again. :)
