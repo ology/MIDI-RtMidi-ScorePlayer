@@ -1,6 +1,8 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+
+0.0110 2024-07-11 22:25:03
     - Enable optional MIDI file saving after each loop.
 		- Add a verbose option to show our progress and looping.
 
