@@ -7,9 +7,11 @@ our $VERSION = '0.0109';
 use strict;
 use warnings;
 
+use File::Basename qw(fileparse);
 use MIDI::RtMidi::FFI::Device ();
 use MIDI::Util qw(get_microseconds score2events);
-use Time::HiRes qw(usleep);
+use Path::Tiny qw(path);
+use Time::HiRes qw(time usleep);
 
 =head1 SYNOPSIS
 
@@ -45,6 +47,7 @@ use Time::HiRes qw(usleep);
       sleep    => 2, # number of seconds to sleep between loops (default: 1)
       loop     => 4, # loop limit if finite (default: 1)
       infinite => 0, # loop infinitely (default: 1)
+      deposit  => 'path/prefix-', # optionally make a file after each loop
   )->play;
 
 =head1 DESCRIPTION
@@ -62,7 +65,6 @@ Besides being handed the B<common> arguments, each B<part> function
 gets a handy, increasing B<_part> number, starting at one, which can
 be used in the part functions. These parts are synch'd together, given
 the B<new> parameters that are described in the example above.
-
 
 =head2 Hints
 
@@ -100,6 +102,10 @@ sub new {
     $opts{sleep}    //= 1;
     $opts{loop}     ||= 1;
     $opts{infinite} //= 1;
+    $opts{deposit}  ||= '';
+    if ($opts{deposit}) {
+        ($opts{prefix}, $opts{path}) = fileparsse($opts{deposit});
+    }
 
     $opts{device} = RtMidiOut->new;
 
@@ -145,6 +151,10 @@ sub _play {
         my $useconds = $micros * $event->[1];
         usleep($useconds) if $useconds > 0 && $useconds < 1_000_000;
         $self->{device}->send_event( $event->[0] => @{ $event }[ 2 .. $#$event ] );
+    }
+    if ($self->{deposit}) {
+        my $filename = path($self->{path}, $self->{prefix} . time() . '.midi');
+        $self->{score}->write_score($filename);
     }
     sleep($self->{sleep});
     $self->_reset_score;
