@@ -104,7 +104,7 @@ sub new {
     $opts{infinite} //= 1;
     $opts{deposit}  ||= '';
     if ($opts{deposit}) {
-        ($opts{prefix}, $opts{path}) = fileparsse($opts{deposit});
+        ($opts{prefix}, $opts{path}) = fileparse($opts{deposit});
     }
 
     $opts{device} = RtMidiOut->new;
