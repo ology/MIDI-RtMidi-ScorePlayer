@@ -56,7 +56,7 @@ while (1) {
 sub part {
     my (%args) = @_;
 
-    my $patch = int rand 20;
+    my $patch = 0;#int rand 20;
     my $track = $args{size} - $args{_part};
     my $channel = $args{_part} < 9 ? $args{_part} : $args{_part} + 1;
     my $octave = ($args{_part} % 5) + 1;
