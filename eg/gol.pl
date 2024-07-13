@@ -44,6 +44,7 @@ my @parts = (\&part) x $size;
 
 while (1) {
     cls();
+    last unless $game->get_used_text_grid;
     my @grid = $game->get_text_grid;
     my $grid = $game->get_text_grid;
 
@@ -61,7 +62,6 @@ while (1) {
     )->play;
 
     $game->process;
-    last unless $game->get_used_text_grid;
 }
 
 sub part {
