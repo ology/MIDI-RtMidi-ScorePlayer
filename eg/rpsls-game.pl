@@ -39,11 +39,11 @@ sub part {
     my $part = sub {
         set_chan_patch($args{score}, 0, 35);
 
-        my $max = $args{result} == 3 ? 2 : 4;
+        my $max = $args{result} == 3 ? 3 : 4;
         for my $n (1 .. $max) {
             my $pitch = $pitches[ int rand @pitches ];
             if ($args{result} == 3) {
-                $args{score}->n('dqn', $pitch);
+                $args{score}->n('thn', $pitch);
             }
             else {
                 $args{score}->n('en', $pitch);
