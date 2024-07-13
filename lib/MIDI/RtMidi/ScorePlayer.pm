@@ -68,7 +68,7 @@ be used in the part functions. These parts are synch'd together, given
 the B<new> parameters that are described in the example above.
 
 If you wish to set the patch or channel for a part, do so B<inside>
-the score of the coderef that is returned by the part.
+the scope of the coderef that is returned by the part.
 
 =head2 Hints
 
