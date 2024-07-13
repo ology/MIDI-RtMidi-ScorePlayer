@@ -10,7 +10,7 @@ use Term::ANSIScreen qw(cls);
 
 END {
     my $score = setup_score(lead_in => 0);
-    my $part = sub { return sub { $score->r('qn') } };
+    my $part = sub { return sub { $score->r('wn') } };
     MIDI::RtMidi::ScorePlayer->new(
       score    => $score,
       parts    => $part,
