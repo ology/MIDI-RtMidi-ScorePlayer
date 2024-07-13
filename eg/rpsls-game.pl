@@ -36,7 +36,7 @@ sub part {
   );
 
   my $part = sub {
-    set_chan_patch( $args{score}, 0, 35 );
+    set_chan_patch($args{score}, 0, 35);
 
     for my $n (1 .. 4) {
       my $pitch = $pitches[ int rand @pitches ];
