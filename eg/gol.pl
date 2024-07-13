@@ -24,7 +24,7 @@ my $size = shift || 12;
 die "Can't have a size greater than 12 (music notes)\n"
     if $size > 12;
 
-my $scale = 'chromatic';;
+my $scale = 'chromatic';
 if ($size == 7) {
     $scale = 'major';
 }
