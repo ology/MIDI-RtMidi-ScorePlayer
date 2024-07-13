@@ -2,7 +2,6 @@ Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
     - Add the mostly hideous, eg/gol.pl program.
-    - Fix mixed up "no parts" condition.
 
 0.0112 2024-07-12 21:44:06
     - Clean-up things a bit.
