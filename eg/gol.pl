@@ -43,8 +43,8 @@ $game->place_points(0, 0, $matrix);
 my @parts = (\&part) x $size;
 
 while (1) {
-    cls();
     last unless $game->get_used_text_grid;
+    cls();
     my @grid = $game->get_text_grid;
     my $grid = $game->get_text_grid;
 
