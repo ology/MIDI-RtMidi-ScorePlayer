@@ -35,7 +35,7 @@ sub part {
     get_scale_MIDI('C', 2, 'pentatonic'),
   );
 
-  my $bass = sub {
+  my $part = sub {
     set_chan_patch( $args{score}, 0, 35 );
 
     for my $n (1 .. 4) {
@@ -44,5 +44,5 @@ sub part {
     }
   };
 
-  return $bass;
+  return $part;
 }
