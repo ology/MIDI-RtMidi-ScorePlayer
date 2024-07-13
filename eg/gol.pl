@@ -8,6 +8,17 @@ use MIDI::Util qw(setup_score set_chan_patch);
 use Music::Scales qw(get_scale_MIDI);
 use Term::ANSIScreen qw(cls);
 
+END {
+    my $score = setup_score(lead_in => 0);
+    my $part = sub { return sub { $score->r('qn') } };
+    MIDI::RtMidi::ScorePlayer->new(
+      score    => $score,
+      parts    => $part,
+      sleep    => 0,
+      infinite => 0,
+    )->play;
+}
+
 my $size = shift || 12;
 
 die "Can't have a size greater than 12 (music notes)\n"
