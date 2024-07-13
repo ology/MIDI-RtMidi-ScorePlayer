@@ -17,7 +17,7 @@ if (my $result = rpsls($choice)) {
         print "Player $result wins\n";
     }
 
-    my $score = setup_score(lead_in => 0, bpm => 120);
+    my $score = setup_score(lead_in => 0);
     my %common = (score => $score, choice => $choice, result => $result);
     MIDI::RtMidi::ScorePlayer->new(
       score    => $score,
