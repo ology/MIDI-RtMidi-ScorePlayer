@@ -31,8 +31,9 @@ if (my $result = rpsls($choice)) {
 sub part {
   my (%args) = @_;
 
+  my $octave = $args{result} == 3 ? 2 : 2 + $args{result};
   my @pitches = (
-    get_scale_MIDI('C', 2 + $args{result}, 'pentatonic'),
+    get_scale_MIDI('C', $octave, 'pentatonic'),
   );
 
   my $part = sub {
