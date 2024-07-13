@@ -77,6 +77,15 @@ my %common = (
     width     => length($opts{drummers}),
 );
 
+my @parts = (\&part) x $opts{drummers};
+
+MIDI::RtMidi::ScorePlayer->new(
+    score  => $d->score,
+    parts  => \@parts,
+    common => \%common,
+    sleep  => 2,
+)->play;
+
 sub part {
     my (%args) = @_;
 
@@ -111,15 +120,6 @@ sub part {
 
     return $part;
 }
-
-my @parts = (\&part) x $opts{drummers};
-
-MIDI::RtMidi::ScorePlayer->new(
-    score  => $d->score,
-    parts  => \@parts,
-    common => \%common,
-    sleep  => 2,
-)->play;
 
 __END__
 
