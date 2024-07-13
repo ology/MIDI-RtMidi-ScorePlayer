@@ -9,24 +9,24 @@ use Music::Scales qw(get_scale_MIDI);
 
 my $choice = shift || die "Usage: perl $0 rock|paper|scissors|lizard|Spock\n";
  
-if (my $result = rpsls($choice)) {
-    if ($result == 3) {
-        print "Its a tie!\n";
-    }
-    else {
-        print "Player $result wins\n";
-    }
+my $result = rpsls($choice);
 
-    my $score = setup_score(lead_in => 0);
-    my %common = (score => $score, choice => $choice, result => $result);
-    MIDI::RtMidi::ScorePlayer->new(
-      score    => $score,
-      parts    => [ \&part ],
-      common   => \%common,
-      sleep    => 0,
-      infinite => 0,
-    )->play;
+if ($result == 3) {
+    print "Its a tie!\n";
 }
+else {
+    print "Player $result wins\n";
+}
+
+my $score = setup_score(lead_in => 0);
+my %common = (score => $score, choice => $choice, result => $result);
+MIDI::RtMidi::ScorePlayer->new(
+  score    => $score,
+  parts    => [ \&part ],
+  common   => \%common,
+  sleep    => 0,
+  infinite => 0,
+)->play;
 
 sub part {
     my (%args) = @_;
