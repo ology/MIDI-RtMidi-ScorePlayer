@@ -10,7 +10,7 @@ use Term::ANSIScreen qw(cls);
 
 my $size = shift || 12;
 
-die "Can't have a size more than 12 (music notes)\n"
+die "Can't have a size greater than 12 (music notes)\n"
     if $size > 12;
 
 my $game = Game::Life::Faster->new($size);
