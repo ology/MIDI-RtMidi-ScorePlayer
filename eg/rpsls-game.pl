@@ -14,12 +14,7 @@ if (my $result = rpsls($choice)) {
         print "Its a tie!\n";
     }
     else {
-        if ($result == 1) {
-            print "Player 1 wins\n";
-        }
-        else {
-            print "Player 2 wins\n";
-        }
+        print "Player $result wins\n";
     }
 
     my $score = setup_score(lead_in => 0, bpm => 120);
