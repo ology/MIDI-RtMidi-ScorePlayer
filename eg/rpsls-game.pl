@@ -43,7 +43,7 @@ sub part {
         for my $n (1 .. $max) {
             my $pitch = $pitches[ int rand @pitches ];
             if ($args{result} == 3) {
-                $args{score}->n('qn', $pitch);
+                $args{score}->n('dqn', $pitch);
             }
             else {
                 $args{score}->n('en', $pitch);
