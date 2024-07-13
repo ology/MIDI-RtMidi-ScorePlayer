@@ -8,7 +8,7 @@ use MIDI::Util qw(setup_score set_chan_patch);
 use Music::Scales qw(get_scale_MIDI);
 use Term::ANSIScreen qw(cls);
 
-my $size = shift || 30;
+my $size = shift || 12;
 
 my $game = Game::Life::Faster->new($size);
 
