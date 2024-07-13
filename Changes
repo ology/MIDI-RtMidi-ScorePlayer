@@ -1,6 +1,8 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+
+0.0112 2024-07-12 21:44:06
     - Clean-up things a bit.
     - Add the eg/rpsls-game.pl program.
     - Improve documentation.
