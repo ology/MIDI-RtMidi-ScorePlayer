@@ -29,21 +29,21 @@ if (my $result = rpsls($choice)) {
 }
 
 sub part {
-  my (%args) = @_;
+    my (%args) = @_;
 
-  my $octave = $args{result} == 3 ? 2 : 2 + $args{result};
-  my @pitches = (
-    get_scale_MIDI('C', $octave, 'pentatonic'),
-  );
+    my $octave = $args{result} == 3 ? 2 : 2 + $args{result};
+    my @pitches = (
+        get_scale_MIDI('C', $octave, 'pentatonic'),
+    );
 
-  my $part = sub {
-    set_chan_patch($args{score}, 0, 35);
+    my $part = sub {
+        set_chan_patch($args{score}, 0, 35);
 
-    for my $n (1 .. 4) {
-      my $pitch = $pitches[ int rand @pitches ];
-      $args{score}->n('qn', $pitch);
-    }
-  };
+        for my $n (1 .. 4) {
+            my $pitch = $pitches[ int rand @pitches ];
+            $args{score}->n('qn', $pitch);
+        }
+    };
 
-  return $part;
+    return $part;
 }
