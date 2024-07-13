@@ -21,7 +21,7 @@ if (my $result = rpsls($choice)) {
     my %common = (score => $score, choice => $choice, result => $result);
     MIDI::RtMidi::ScorePlayer->new(
       score    => $score,
-      parts    => [ \&part ], # TODO a part for each choice x result ?
+      parts    => [ \&part ],
       common   => \%common,
       sleep    => 0,
       infinite => 0,
@@ -39,9 +39,15 @@ sub part {
     my $part = sub {
         set_chan_patch($args{score}, 0, 35);
 
-        for my $n (1 .. 4) {
+        my $max = $args{result} == 3 ? 2 : 4;
+        for my $n (1 .. $max) {
             my $pitch = $pitches[ int rand @pitches ];
-            $args{score}->n('qn', $pitch);
+            if ($args{result} == 3) {
+                $args{score}->n('hn', $pitch);
+            }
+            else {
+                $args{score}->n('qn', $pitch);
+            }
         }
     };
 
