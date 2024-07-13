@@ -79,7 +79,7 @@ C<fluidsynth -a coreaudio -m coremidi -g 1.0 some-soundfont.sf2>
 Also, you can use Timidity. You can also use a digital audio
 workstation (DAW) like Logic, with a software synth track selected.
 If you wish, you can get General MIDI via "DLSMusicDevice" within a
-DAW.  To do this, you will need a soundfont in
+DAW. To do this, you will need a soundfont in
 C<~/Library/Audio/Sounds/Banks/> and DLSMusicDevice open in your DAW
 with the soundfont selected.
 
