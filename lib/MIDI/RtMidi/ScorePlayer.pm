@@ -98,7 +98,7 @@ sub new {
     my ($class, %opts) = @_;
 
     die 'A MIDI score object is required' unless $opts{score};
-    die 'A list of parts is required' if !$opts{parts} || @{ $opts{parts} };
+    die 'A list of parts is required' unless $opts{parts} && @{ $opts{parts} };
 
     $opts{common}   ||= {};
     $opts{repeats}  ||= 1;
