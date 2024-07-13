@@ -32,7 +32,7 @@ sub part {
   my (%args) = @_;
 
   my @pitches = (
-    get_scale_MIDI('C', 2, 'pentatonic'),
+    get_scale_MIDI('C', 2 + $args{result}, 'pentatonic'),
   );
 
   my $part = sub {
