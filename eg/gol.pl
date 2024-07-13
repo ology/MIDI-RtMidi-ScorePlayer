@@ -24,6 +24,17 @@ my $size = shift || 12;
 die "Can't have a size greater than 12 (music notes)\n"
     if $size > 12;
 
+my $scale = 'chromatic';;
+if ($size == 7) {
+    $scale = 'major';
+}
+elsif ($size == 6) {
+    $scale = 'wholetone';
+}
+elsif ($size == 5) {
+    $scale = 'pentatonic';
+}
+
 my $game = Game::Life::Faster->new($size);
 
 my $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
@@ -37,7 +48,7 @@ while (1) {
     my $grid = $game->get_text_grid;
 
     my $score = setup_score(lead_in => 0);
-    my %common = (score => $score, grid => \@grid, size => $size, seen => {});
+    my %common = (score => $score, grid => \@grid, size => $size, seen => {}, scale => $scale);
 
     print scalar $grid, "\n";
 
@@ -61,7 +72,7 @@ sub part {
     my $channel = $args{_part} < 9 ? $args{_part} : $args{_part} + 1;
     my $octave = ($args{_part} % 5) + 1;
     my @scale = (
-        get_scale_MIDI('C', $octave, 'chromatic'),
+        get_scale_MIDI('C', $octave, $args{scale}),
     );
     my @row = split //, $args{grid}->[$track];
 
