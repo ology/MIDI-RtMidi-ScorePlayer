@@ -33,7 +33,6 @@ pod2usage(-exitval => 0, -verbose => 2) if $opts{man};
 
 # Setup a drum score, etc
 my $d = MIDI::Drummer::Tiny->new(
-    #file   => "$0.mid",
     bpm    => $opts{bpm},
     bars   => $opts{drummers} * $opts{measures},
     reverb => 15, # We're outside
