@@ -69,7 +69,7 @@ sub part {
     my (%args) = @_;
 
     my $patch = 4;#0;#int rand 20;
-    my $track = $args{size} - $args{_part};
+    my $track = $args{size} - $args{_part}; # bottom -> up
     my $channel = $args{_part} < 9 ? $args{_part} : $args{_part} + 1;
     my $octave = ($args{_part} % 5) + 1;
     my @scale = (
