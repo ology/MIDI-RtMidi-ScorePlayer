@@ -13,7 +13,7 @@ END {
     my $part = sub { return sub { $score->r('wn') } };
     MIDI::RtMidi::ScorePlayer->new(
       score    => $score,
-      parts    => $part,
+      parts    => [ $part ],
       sleep    => 0,
       infinite => 0,
     )->play;
@@ -36,6 +36,8 @@ elsif ($size == 5) {
 }
 
 my $game = Game::Life::Faster->new($size);
+$game->get_used_grid;
+exit;
 
 my $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
 $game->place_points(0, 0, $matrix);
@@ -62,7 +64,7 @@ while (1) {
 
     $game->process;
 
-    last unless $game->get_used_text_grid;
+    last unless $game->get_used_grid;
 }
 
 sub part {
