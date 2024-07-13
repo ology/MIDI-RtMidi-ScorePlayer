@@ -10,6 +10,9 @@ use Term::ANSIScreen qw(cls);
 
 my $size = shift || 12;
 
+die "Can't have a size more than 12 (music notes)\n"
+    if $size > 12;
+
 my $game = Game::Life::Faster->new($size);
 
 my $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
