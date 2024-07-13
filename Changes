@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Clean-up things.
 
 0.0111 2024-07-12 16:56:30
     - Die if the deposit path does not exist.
