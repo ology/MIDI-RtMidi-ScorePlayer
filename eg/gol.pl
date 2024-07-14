@@ -66,7 +66,8 @@ else {
     store($matrix, 'gol-state.dat');
 }
 
-$game->place_points(0, 0, $matrix);
+$game->place_points(0, 0, $matrix)
+    if $init != 1;
 
 my @parts = (\&part) x $size;
 
