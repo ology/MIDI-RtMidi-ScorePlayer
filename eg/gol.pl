@@ -54,8 +54,7 @@ if ($init == 1) {
         int $size / 2, int $size / 2,
         [ [ 1, 1, 1 ],
           [ 1, 0, 0 ],
-          [ 0, 1, 0 ],
-        ]
+          [ 0, 1, 0 ] ] # glider
     );
 }
 elsif ($init && -e $init) {
