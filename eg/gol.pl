@@ -59,15 +59,14 @@ if ($init == 1) {
 }
 elsif ($init && -e $init) {
     $matrix = retrieve($init);
+    $game->place_points(0, 0, $matrix);
 }
 else {
     warn "Can't load $init\n" if $init;
     $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
     store($matrix, 'gol-state.dat');
+    $game->place_points(0, 0, $matrix);
 }
-
-$game->place_points(0, 0, $matrix)
-    if $init != 1;
 
 my @parts = (\&part) x $size;
 
