@@ -50,6 +50,7 @@ if ($init && -e $init) {
     $matrix = retrieve($init);
 }
 else {
+    warn "Can't load $init\n" if $init;
     $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
     store($matrix, 'gol-state.dat');
 }
