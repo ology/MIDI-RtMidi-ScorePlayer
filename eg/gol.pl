@@ -48,11 +48,13 @@ my $game = Game::Life::Faster->new($size);
 
 my $matrix;
 if ($init == 1) {
-    $game->place_points(int $size / 2, int $size / 2, [
-        [ 1, 1, 1 ],
-        [ 1, 0, 0 ],
-        [ 0, 1, 0 ],
-    ]);
+    $game->place_points(
+        int $size / 2, int $size / 2,
+        [ [ 1, 1, 1 ],
+          [ 1, 0, 0 ],
+          [ 0, 1, 0 ],
+        ]
+    );
 }
 elsif ($init && -e $init) {
     $matrix = retrieve($init);
