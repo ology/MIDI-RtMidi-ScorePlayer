@@ -21,7 +21,7 @@ END {
 }
 
 my $size = shift || 12;
-my $init = shift || 0;
+my $init = shift || 0; # or some/gol-state.dat file
 
 die "Can't have a size greater than 12 (music notes)\n"
     if $size > 12;
@@ -40,13 +40,12 @@ elsif ($size == 5) {
 my $game = Game::Life::Faster->new($size);
 
 my $matrix;
-my $gol_state = 'gol-state.dat';
-if ($init && -e $gol_state) {
-    $matrix = retrieve($gol_state);
+if ($init && -e $init) {
+    $matrix = retrieve($init);
 }
 else {
     $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
-    store($matrix, $gol_state);
+    store($matrix, 'gol-state.dat');
 }
 
 $game->place_points(0, 0, $matrix);
