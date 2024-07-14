@@ -2,6 +2,10 @@
 use strict;
 use warnings;
 
+# Examples: perl eg/gol.pl 5
+#           perl eg/gol.pl 5 eg/gol-4x.dat
+#           perl eg/gol.pl 12
+
 use Game::Life::Faster ();
 use MIDI::RtMidi::ScorePlayer ();
 use MIDI::Util qw(setup_score set_chan_patch);
