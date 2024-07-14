@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+# Successfully tested on a Mac with fluidsynth, only yet.
+
 # Examples:
 # perl eg/dat/gol.pl 5
 # perl eg/dat/gol.pl 5 eg/dat/gol-5-4x.dat
