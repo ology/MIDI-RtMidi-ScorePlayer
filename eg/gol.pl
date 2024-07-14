@@ -2,10 +2,11 @@
 use strict;
 use warnings;
 
-# Examples: perl eg/gol.pl 5
-#           perl eg/gol.pl 5 eg/gol-4x.dat
-#           perl eg/gol.pl 12
-#           perl eg/gol.pl 12 eg/gol-12-blink.dat
+# Examples:
+# perl eg/gol.pl 5
+# perl eg/gol.pl 5 eg/gol-4x.dat
+# perl eg/gol.pl 12
+# perl eg/gol.pl 12 eg/gol-12-blink.dat
 
 use Game::Life::Faster ();
 use MIDI::RtMidi::ScorePlayer ();
