@@ -6,6 +6,7 @@ use Game::Life::Faster ();
 use MIDI::RtMidi::ScorePlayer ();
 use MIDI::Util qw(setup_score set_chan_patch);
 use Music::Scales qw(get_scale_MIDI);
+use Storable qw(retrieve store);
 use Term::ANSIScreen qw(cls);
 
 END {
@@ -20,6 +21,7 @@ END {
 }
 
 my $size = shift || 12;
+my $init = shift || 0;
 
 die "Can't have a size greater than 12 (music notes)\n"
     if $size > 12;
@@ -37,7 +39,16 @@ elsif ($size == 5) {
 
 my $game = Game::Life::Faster->new($size);
 
-my $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
+my $matrix;
+my $gol_state = 'gol-state.dat';
+if ($init && -e $gol_state) {
+    $matrix = retrieve($gol_state);
+}
+else {
+    $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
+    store($matrix, $gol_state);
+}
+
 $game->place_points(0, 0, $matrix);
 
 my @parts = (\&part) x $size;
