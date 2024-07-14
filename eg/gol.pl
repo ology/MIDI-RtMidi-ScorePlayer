@@ -46,7 +46,17 @@ elsif ($size == 5) {
 my $game = Game::Life::Faster->new($size);
 
 my $matrix;
-if ($init && -e $init) {
+if ($init == 1) {
+    $game->place_points(int $size / 2, int $size / 2, [
+        [ 1, 1, 1 ],
+        [ 1, 0, 0 ],
+        [ 0, 1, 0 ],
+    ]);
+    my @grid = $game->get_text_grid;
+use Data::Dumper::Compact qw(ddc);
+warn __PACKAGE__,' L',__LINE__,' ',ddc(\@grid, {max_width=>128});
+}
+elsif ($init && -e $init) {
     $matrix = retrieve($init);
 }
 else {
