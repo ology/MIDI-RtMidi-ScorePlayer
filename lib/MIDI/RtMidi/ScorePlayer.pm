@@ -81,10 +81,10 @@ B<MacOS>:
 You can use FluidSynth like this:
 C<fluidsynth -a coreaudio -m coremidi -g 1.0 some-soundfont.sf2>
 Also, you can use Timidity, as above. A digital audio workstation
-(DAW) like Logic, with a software synth track selected, will work. And
-if you wish, you can get General MIDI with a "DLSMusicDevice" track
-open, and a soundfont in C<~/Library/Audio/Sounds/Banks/>. Make sure
-the soundfont is selected for the track.
+(DAW) like Logic, with a software synth track selected, should work.
+And if you wish, you can get General MIDI with a "DLSMusicDevice"
+track open, and a soundfont in C<~/Library/Audio/Sounds/Banks/>. Make
+sure the soundfont is selected for the track.
 
 B<Windows>:
 This should I<just work> out of the box.
