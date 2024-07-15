@@ -79,7 +79,7 @@ Or try Timidity in daemon mode: C<timidity -iAD>, but YMMV, TBH.
 
 B<MacOS>:
 You can use FluidSynth like this:
-C<fluidsynth -a coreaudio -m coremidi -g 1.0 some-soundfont.sf2>
+C<fluidsynth -a coreaudio -m coremidi some-soundfont.sf2>
 Also, you can use Timidity, as above. A digital audio workstation
 (DAW) like Logic, with a software synth track selected, should work.
 And if you wish, you can get General MIDI with a "DLSMusicDevice"
