@@ -67,7 +67,18 @@ elsif ($init eq '2') {
           [qw(0 0 1 1 1 0)],
           [qw(0 1 1 1 0 0)],
           [qw(0 0 0 0 0 0)],
-          [qw(0 0 0 0 0 0)] ]
+          [qw(0 0 0 0 0 0)] ] # toad
+    );
+}
+elsif ($init eq '3') {
+    $game->place_points(
+        0, 0,
+        [ [qw(0 0 0 0 0 0)],
+          [qw(0 1 1 0 0 0)],
+          [qw(0 1 1 0 0 0)],
+          [qw(0 0 0 1 1 0)],
+          [qw(0 0 0 1 1 0)],
+          [qw(0 0 0 0 0 0)] ] # beacon
     );
 }
 elsif ($init && -e $init) {
