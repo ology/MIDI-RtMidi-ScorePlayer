@@ -59,6 +59,17 @@ if ($init eq '1') {
           [ 0, 1, 0 ] ] # glider
     );
 }
+elsif ($init eq '2') {
+    $game->place_points(
+        0, 0,
+        [ [qw(0 0 0 0 0 0)],
+          [qw(0 0 0 0 0 0)],
+          [qw(0 0 1 1 1 0)],
+          [qw(0 1 1 1 0 0)],
+          [qw(0 0 0 0 0 0)],
+          [qw(0 0 0 0 0 0)] ]
+    );
+}
 elsif ($init && -e $init) {
     $matrix = retrieve($init);
     $game->place_points(0, 0, $matrix);
