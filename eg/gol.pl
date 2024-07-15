@@ -74,22 +74,24 @@ if ($init =~ /^\d\d?$/) {
                        [qw(0 1 1 1 1)],
                        [qw(0 0 0 0 0)] ],
     );
-    ($x, $y) = (0, 0);
     if ($init eq '1') {
         $matrix = $cells{glider};
         ($x, $y) = (int $size / 2, int $size / 2);
     }
     elsif ($init eq '2') {
         $matrix = $cells{toad};
+        ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
     }
     elsif ($init eq '3') {
         $matrix = $cells{beacon};
+        ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
     }
     elsif ($init eq '4') {
         $matrix = $cells{spaceship};
+        ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
     }
     $matrix = transpose($matrix) if int rand 2;
-    $game->place_points($x, $y, $matrix);
+    $game->place_points($y, $x, $matrix);
 }
 else {
     if ($init && -e $init) {
