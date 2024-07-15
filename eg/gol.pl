@@ -84,12 +84,11 @@ elsif ($init eq '3') {
 elsif ($init eq '4') {
     $game->place_points(
         5, 0,
-        [ [qw(0 0 0 0 0 0)],
-          [qw(0 1 0 0 1 0)],
-          [qw(0 0 0 0 0 1)],
-          [qw(0 1 0 0 0 1)],
-          [qw(0 0 1 1 1 1)],
-          [qw(0 0 0 0 0 0)] ] # spaceship then glider
+        [ [qw(1 0 0 1 0)],
+          [qw(0 0 0 0 1)],
+          [qw(1 0 0 0 1)],
+          [qw(0 1 1 1 1)],
+          [qw(0 0 0 0 0)] ] # spaceship then glider
     );
 }
 elsif ($init && -e $init) {
