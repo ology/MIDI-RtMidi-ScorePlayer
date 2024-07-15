@@ -65,23 +65,20 @@ if ($init eq '1') {
 elsif ($init eq '2') {
     $game->place_points(
         0, 0,
-        [ [qw(0 0 0 0 0 0)],
-          [qw(0 0 0 0 0 0)],
-          [qw(0 0 1 1 1 0)],
-          [qw(0 1 1 1 0 0)],
-          [qw(0 0 0 0 0 0)],
-          [qw(0 0 0 0 0 0)] ] # toad
+        [ 
+          [qw(0 0 0 0)],
+          [qw(0 1 1 1)],
+          [qw(1 1 1 0)],
+          [qw(0 0 0 0)] ] # toad
     );
 }
 elsif ($init eq '3') {
     $game->place_points(
         0, 0,
-        [ [qw(0 0 0 0 0 0)],
-          [qw(0 1 1 0 0 0)],
-          [qw(0 1 1 0 0 0)],
-          [qw(0 0 0 1 1 0)],
-          [qw(0 0 0 1 1 0)],
-          [qw(0 0 0 0 0 0)] ] # beacon
+        [ [qw(1 1 0 0)],
+          [qw(1 1 0 0)],
+          [qw(0 0 1 1)],
+          [qw(0 0 1 1)] ] # beacon
     );
 }
 elsif ($init eq '4') {
