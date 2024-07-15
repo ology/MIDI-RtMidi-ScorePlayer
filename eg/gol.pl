@@ -57,37 +57,34 @@ my $game = Game::Life::Faster->new($size);
 my ($matrix, $x, $y);
 if ($init =~ /^\d\d?$/) {
     my %cells = (
-        glider    => [ [qw(1 1 1)],
-                       [qw(1 0 0)],
-                       [qw(0 1 0)] ],
-        toad      => [ [qw(0 0 0 0)],
-                       [qw(0 1 1 1)],
-                       [qw(1 1 1 0)],
-                       [qw(0 0 0 0)] ],
-        beacon    => [ [qw(1 1 0 0)],
-                       [qw(1 1 0 0)],
-                       [qw(0 0 1 1)],
-                       [qw(0 0 1 1)] ],
-        spaceship => [ [qw(1 0 0 1 0)],
-                       [qw(0 0 0 0 1)],
-                       [qw(1 0 0 0 1)],
-                       [qw(0 1 1 1 1)],
-                       [qw(0 0 0 0 0)] ],
+        1 => [ [qw(1 1 1)],
+               [qw(1 0 0)],
+               [qw(0 1 0)] ],
+        2 => [ [qw(0 0 0 0)],
+               [qw(0 1 1 1)],
+               [qw(1 1 1 0)],
+               [qw(0 0 0 0)] ],
+        3 => [ [qw(1 1 0 0)],
+               [qw(1 1 0 0)],
+               [qw(0 0 1 1)],
+               [qw(0 0 1 1)] ],
+        4 => [ [qw(1 0 0 1 0)],
+               [qw(0 0 0 0 1)],
+               [qw(1 0 0 0 1)],
+               [qw(0 1 1 1 1)],
+               [qw(0 0 0 0 0)] ],
     );
+    $matrix = $cells{$init};
     if ($init eq '1') {
-        $matrix = $cells{glider};
         ($x, $y) = (int $size / 2, int $size / 2);
     }
     elsif ($init eq '2') {
-        $matrix = $cells{toad};
         ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
     }
     elsif ($init eq '3') {
-        $matrix = $cells{beacon};
         ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
     }
     elsif ($init eq '4') {
-        $matrix = $cells{spaceship};
         ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
     }
     $matrix = transpose($matrix) if int rand 2;
