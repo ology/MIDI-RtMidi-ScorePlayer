@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-# Successfully tested on a Mac with fluidsynth, only yet.
+# Successfully tested with fluidsynth, only.
 
 # Examples:
 # perl eg/dat/gol.pl 5
