@@ -111,6 +111,7 @@ sub new {
     $opts{infinite} //= 1;
     $opts{verbose}  //= 1;
     $opts{deposit}  ||= '';
+
     if ($opts{deposit}) {
         ($opts{prefix}, $opts{path}) = fileparse($opts{deposit});
         die "Invalid path: $opts{path}\n" unless -d $opts{path};
