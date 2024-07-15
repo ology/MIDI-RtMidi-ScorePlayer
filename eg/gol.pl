@@ -17,6 +17,7 @@ use warnings;
 # perl eg/dat/gol.pl 12 4 # render spacship
 
 use Game::Life::Faster ();
+use Array::Transpose qw(transpose);
 use MIDI::RtMidi::ScorePlayer ();
 use MIDI::Util qw(setup_score set_chan_patch);
 use Music::Scales qw(get_scale_MIDI);
@@ -53,53 +54,54 @@ elsif ($size == 5) {
 
 my $game = Game::Life::Faster->new($size);
 
-my $matrix;
-if ($init eq '1') {
-    $game->place_points(
-        int $size / 2, int $size / 2,
-        [ [ 1, 1, 1 ],
-          [ 1, 0, 0 ],
-          [ 0, 1, 0 ] ] # glider
+my ($matrix, $x, $y);
+if ($init =~ /^\d\d?$/) {
+    my %cells = (
+        glider    => [ [qw(1 1 1)],
+                       [qw(1 0 0)],
+                       [qw(0 1 0)] ],
+        toad      => [ [qw(0 0 0 0)],
+                       [qw(0 1 1 1)],
+                       [qw(1 1 1 0)],
+                       [qw(0 0 0 0)] ],
+        beacon    => [ [qw(1 1 0 0)],
+                       [qw(1 1 0 0)],
+                       [qw(0 0 1 1)],
+                       [qw(0 0 1 1)] ],
+        spaceship => [ [qw(1 0 0 1 0)],
+                       [qw(0 0 0 0 1)],
+                       [qw(1 0 0 0 1)],
+                       [qw(0 1 1 1 1)],
+                       [qw(0 0 0 0 0)] ],
     );
-}
-elsif ($init eq '2') {
-    $game->place_points(
-        0, 0,
-        [ 
-          [qw(0 0 0 0)],
-          [qw(0 1 1 1)],
-          [qw(1 1 1 0)],
-          [qw(0 0 0 0)] ] # toad
-    );
-}
-elsif ($init eq '3') {
-    $game->place_points(
-        0, 0,
-        [ [qw(1 1 0 0)],
-          [qw(1 1 0 0)],
-          [qw(0 0 1 1)],
-          [qw(0 0 1 1)] ] # beacon
-    );
-}
-elsif ($init eq '4') {
-    $game->place_points(
-        5, 0,
-        [ [qw(1 0 0 1 0)],
-          [qw(0 0 0 0 1)],
-          [qw(1 0 0 0 1)],
-          [qw(0 1 1 1 1)],
-          [qw(0 0 0 0 0)] ] # spaceship then glider
-    );
-}
-elsif ($init && -e $init) {
-    $matrix = retrieve($init);
-    $game->place_points(0, 0, $matrix);
+    ($x, $y) = (0, 0);
+    if ($init eq '1') {
+        $matrix = $cells{glider};
+        ($x, $y) = (int $size / 2, int $size / 2);
+    }
+    elsif ($init eq '2') {
+        $matrix = $cells{toad};
+    }
+    elsif ($init eq '3') {
+        $matrix = $cells{beacon};
+    }
+    elsif ($init eq '4') {
+        $matrix = $cells{spaceship};
+    }
+    $matrix = transpose($matrix) if int rand 2;
+    $game->place_points($x, $y, $matrix);
 }
 else {
-    warn "Can't load $init\n" if $init;
-    $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
-    store($matrix, 'gol-state.dat');
-    $game->place_points(0, 0, $matrix);
+    if ($init && -e $init) {
+        $matrix = retrieve($init);
+        $game->place_points(0, 0, $matrix);
+    }
+    else {
+        warn "Can't load $init\n" if $init;
+        $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
+        store($matrix, 'gol-state.dat');
+        $game->place_points(0, 0, $matrix);
+    }
 }
 
 my @parts = (\&part) x $size;
