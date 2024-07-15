@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Improve documentation.
 
 0.0115 2024-07-14 16:08:32
     - Improved the eg/gol.pl program.
