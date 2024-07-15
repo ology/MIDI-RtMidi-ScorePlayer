@@ -76,7 +76,7 @@ if ($init =~ /^\d\d?$/) {
     );
     $matrix = $cells{$init};
     $matrix = transpose($matrix) if int rand 2;
-    ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
+    ($x, $y) = (int rand($size - @$matrix + 1), int rand($size - @$matrix + 1));
     $game->place_points($y, $x, $matrix);
 }
 else {
