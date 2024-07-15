@@ -102,7 +102,7 @@ sub new {
 
     die 'A MIDI score object is required' unless $opts{score};
     die 'A list of parts is required'
-        unless $opts{parts} && map { ref eq 'CODE' } @{ $opts{parts} };
+        unless $opts{parts} && grep { ref eq 'CODE' } @{ $opts{parts} };
 
     $opts{common}   ||= {};
     $opts{repeats}  ||= 1;
