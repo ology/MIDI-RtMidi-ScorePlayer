@@ -74,7 +74,8 @@ the scope of the coderef that is returned by the part.
 
 B<Linux>:
 If your distro does not install a service, you can use timidity in
-daemon mode: C<timidity -iAD>. Also, FluidSynth is an alternative.
+daemon mode: C<timidity -iAD>. Also, FluidSynth is an alternative:
+C<fluidsynth -a alsa -m alsa_seq -g 1.0 some-soundfont.sf2>
 
 B<MacOS>:
 You can use FluidSynth like this:
