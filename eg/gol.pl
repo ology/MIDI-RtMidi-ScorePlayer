@@ -75,19 +75,8 @@ if ($init =~ /^\d\d?$/) {
                [qw(0 0 0 0 0)] ],
     );
     $matrix = $cells{$init};
-    if ($init eq '1') {
-        ($x, $y) = (int $size / 2, int $size / 2);
-    }
-    elsif ($init eq '2') {
-        ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
-    }
-    elsif ($init eq '3') {
-        ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
-    }
-    elsif ($init eq '4') {
-        ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
-    }
     $matrix = transpose($matrix) if int rand 2;
+    ($x, $y) = (int rand($size - @$matrix), int rand($size - @$matrix));
     $game->place_points($y, $x, $matrix);
 }
 else {
