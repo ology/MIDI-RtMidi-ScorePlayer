@@ -14,6 +14,7 @@ use warnings;
 # perl eg/dat/gol.pl 12 1 # render glider
 # perl eg/dat/gol.pl 5 2  # render toad
 # perl eg/dat/gol.pl 7 3  # render beacon
+# perl eg/dat/gol.pl 12 4 # render spacship
 
 use Game::Life::Faster ();
 use MIDI::RtMidi::ScorePlayer ();
@@ -81,6 +82,17 @@ elsif ($init eq '3') {
           [qw(0 0 0 1 1 0)],
           [qw(0 0 0 1 1 0)],
           [qw(0 0 0 0 0 0)] ] # beacon
+    );
+}
+elsif ($init eq '4') {
+    $game->place_points(
+        5, 0,
+        [ [qw(0 0 0 0 0 0)],
+          [qw(0 1 0 0 1 0)],
+          [qw(0 0 0 0 0 1)],
+          [qw(0 1 0 0 0 1)],
+          [qw(0 0 1 1 1 1)],
+          [qw(0 0 0 0 0 0)] ] # spaceship then glider
     );
 }
 elsif ($init && -e $init) {
