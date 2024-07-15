@@ -12,7 +12,7 @@ use warnings;
 # perl eg/dat/gol.pl 12 eg/dat/gol-12-blink.dat
 # perl eg/dat/gol.pl 12 eg/dat/gol-5-4x.dat
 # perl eg/dat/gol.pl 12 1 # render glider
-# perl eg/dat/gol.pl 7 2  # render toad
+# perl eg/dat/gol.pl 5 2  # render toad
 # perl eg/dat/gol.pl 7 3  # render beacon
 
 use Game::Life::Faster ();
