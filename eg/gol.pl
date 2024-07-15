@@ -51,7 +51,7 @@ elsif ($size == 5) {
 my $game = Game::Life::Faster->new($size);
 
 my $matrix;
-if ($init == 1) {
+if ($init eq '1') {
     $game->place_points(
         int $size / 2, int $size / 2,
         [ [ 1, 1, 1 ],
