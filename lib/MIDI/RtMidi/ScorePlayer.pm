@@ -48,7 +48,7 @@ use Time::HiRes qw(time usleep);
       loop     => 4, # loop limit if finite (default: 1)
       infinite => 0, # loop infinitely (default: 1)
       deposit  => 'path/prefix-', # optionally make a file after each loop
-			vebose   => 0, # show our progress (default: 1)
+      vebose   => 0, # show our progress (default: 1)
   )->play;
 
 =head1 DESCRIPTION
