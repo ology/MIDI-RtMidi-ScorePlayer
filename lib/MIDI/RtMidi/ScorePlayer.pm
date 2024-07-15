@@ -136,9 +136,7 @@ Play a given MIDI score in real-time.
 sub play {
     my ($self) = @_;
     if ($self->{infinite}) {
-        while (1) {
-            $self->_play;
-        }
+        while (1) { $self->_play }
     }
     else {
         $self->_play for 1 .. $self->{loop};
