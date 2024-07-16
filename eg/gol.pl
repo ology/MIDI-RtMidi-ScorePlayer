@@ -85,7 +85,7 @@ else {
         $game->place_points(0, 0, $matrix);
     }
     else {
-        warn "Can't load $init\n" if $init;
+        die "Can't load $init\n" if $init;
         $matrix = [ map { [ map { int(rand 2) } 1 .. $size ] } 1 .. $size ];
         store($matrix, 'gol-state.dat');
         $game->place_points(0, 0, $matrix);
