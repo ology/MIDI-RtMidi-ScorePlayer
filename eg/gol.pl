@@ -122,7 +122,7 @@ sub part {
 
     my $track = $args{size} - $args{_part}; # bottom -> up
     my $channel = $args{_part} < 9 ? $args{_part} : $args{_part} + 1;
-    my $octave = (($args{_part} - 1) % 6) + 2;
+    my $octave = (($args{_part} - 1) % 5) + 2;
     my $patch = 4; #int rand 20;
     my @scale = (
         get_scale_MIDI('C', $octave, $args{scale}),
