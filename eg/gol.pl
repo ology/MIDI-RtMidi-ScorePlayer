@@ -55,7 +55,7 @@ elsif ($size == 5) {
 my $game = Game::Life::Faster->new($size);
 
 my ($matrix, $x, $y);
-if ($init =~ /^\d\d?$/) {
+if ($init =~ /^\d\d?$/ && $init != '0') {
     my %cells = (
         1 => [ [qw(1 1 1)],     # glider
                [qw(1 0 0)],
