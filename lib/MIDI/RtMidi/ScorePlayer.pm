@@ -156,13 +156,13 @@ sub _play {
     my $events = score2events($self->{score});
     for my $event (@$events) {
         next if $event->[0] =~ /set_tempo|time_signature/;
-        if ( $event->[0] eq 'text_event' ) {
+        if ($event->[0] eq 'text_event') {
             printf "%s\n", $event->[-1] if $self->{verbose};
             next;
         }
         my $useconds = $micros * $event->[1];
         usleep($useconds) if $useconds > 0 && $useconds < 1_000_000;
-        $self->{device}->send_event( $event->[0] => @{ $event }[ 2 .. $#$event ] );
+        $self->{device}->send_event($event->[0] => @{ $event }[ 2 .. $#$event ]);
     }
     if ($self->{deposit}) {
         my $filename = path($self->{path}, $self->{prefix} . time() . '.midi');
