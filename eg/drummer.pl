@@ -55,7 +55,7 @@ my $tka  = Term::TermKey::Async->new(
     # SNARE
     elsif ($pressed eq 's') {
       push @parts, 'snare';
-      my $snare = sub {
+      my $part = sub {
         my (%args) = @_;
         $args{drummer}->note('sn', $args{drummer}->snare)
           for 1 .. 4;
@@ -64,11 +64,11 @@ my $tka  = Term::TermKey::Async->new(
       MIDI::RtMidi::ScorePlayer->new(
         score  => $d->score,
         common => { drummer => $d },
-        parts  => [ $snare ],
+        parts  => [ $part ],
         sleep    => 0,
         infinite => 0,
       )->play;
-      $common{snare}   = $snare;
+      $common{snare}   = $part;
       $common{drummer} = $d;
       $common{parts}   = \@parts;
       print "Snare\n" if $verbose;
@@ -76,7 +76,7 @@ my $tka  = Term::TermKey::Async->new(
     # BEAT
     elsif ($pressed eq 'x') {
       push @parts, 'backbeat';
-      my $backbeat = sub {
+      my $part = sub {
         my (%args) = @_;
         $args{drummer}->note(
           $args{drummer}->quarter,
@@ -88,11 +88,11 @@ my $tka  = Term::TermKey::Async->new(
       MIDI::RtMidi::ScorePlayer->new(
         score  => $d->score,
         common => { drummer => $d },
-        parts  => [ $backbeat ],
+        parts  => [ $part ],
         sleep    => 0,
         infinite => 0,
       )->play;
-      $common{backbeat} = $backbeat;
+      $common{backbeat} = $part;
       print "Backbeat\n" if $verbose;
     }
     # FINISH
