@@ -52,6 +52,19 @@ my $tka  = Term::TermKey::Async->new(
       %common = ();
       @parts  = ();
     }
+    # KICK
+    elsif ($pressed eq 'k') {
+      print "Kick\n" if $verbose;
+      push @parts, 'kick';
+      my $part = sub {
+        my (%args) = @_;
+        $args{drummer}->note('en', $args{drummer}->kick)
+          for 1 .. 2;
+      };
+      my $d = snippit($part, $bpm);
+      $common{drummer} = $d;
+      $common{kick}   = $part;
+    }
     # SNARE
     elsif ($pressed eq 's') {
       print "Snare\n" if $verbose;
