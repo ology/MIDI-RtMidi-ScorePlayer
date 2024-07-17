@@ -34,7 +34,7 @@ my $tka  = Term::TermKey::Async->new(
         sleep    => 0,
         infinite => 0,
       )->play;
-      print "Pay score\n" if $verbose;
+      print "Play score\n" if $verbose;
     }
     elsif ($pressed eq 'b') {
       $bpm += 5;
