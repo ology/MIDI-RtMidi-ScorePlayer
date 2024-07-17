@@ -17,13 +17,7 @@ my $tka  = Term::TermKey::Async->new(
     my ($self, $key) = @_;
     my $pressed = $self->format_key($key, FORMAT_VIM);
     print "Got key: $pressed\n";
-    if ($pressed eq 'b') {
-      $bpm += 5;
-    }
-    elsif ($pressed eq 'B') {
-      $bpm -= 5;
-    }
-    elsif ($pressed eq 'p') {
+    if ($pressed eq 'p') {
       my $d = MIDI::Drummer::Tiny->new(
         bpm    => $bpm,
         reverb => 15,
@@ -36,6 +30,19 @@ my $tka  = Term::TermKey::Async->new(
         sleep    => 0,
         infinite => 0,
       )->play;
+    }
+    elsif ($pressed eq 'b') {
+      $bpm += 5;
+    }
+    elsif ($pressed eq 'B') {
+      $bpm -= 5;
+    }
+    elsif ($pressed eq 's') {
+      $common{snare} = sub {
+        my (%args) = @_;
+        $args{drummer}->note('sn', $args{drummer}->snare)
+          for 1 .. 4;
+      };
     }
 
     $loop->loop_stop if $key->type_is_unicode and
@@ -56,7 +63,7 @@ sub part {
   );
 
   my $part = sub {
-warn __PACKAGE__,' L',__LINE__,' ',$args{drummer}->bpm,"\n";
+    $args{snare}->(%args) if exists $args{snare};
     $args{drummer}->note(
       $args{drummer}->quarter,
       $args{drummer}->open_hh,
