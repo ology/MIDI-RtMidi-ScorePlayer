@@ -7,12 +7,6 @@ use MIDI::Drummer::Tiny ();
 use MIDI::RtMidi::ScorePlayer ();
 use Music::Scales qw(get_scale_MIDI);
 use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
-# use Term::Cap ();
-
-# END {
-    # my $terminal = Term::Cap->Tgetent({ TERM => undef, OSPEED => 9600 });
-    # $terminal->Tputs('rs', 1, *STDOUT);
-# }
 
 my $bpm  = 100;
 my $loop = IO::Async::Loop->new;
