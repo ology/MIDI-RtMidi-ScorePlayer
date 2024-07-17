@@ -14,7 +14,7 @@ my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
   on_key => sub {
       my ($self, $key) = @_;
-      # print "Got key: ".$self->format_key( $key, FORMAT_VIM )."\n";
+      # print 'Got key: ', $self->format_key($key, FORMAT_VIM), "\n";
 
       my $score = setup_score(lead_in => 0, bpm => 120);
       my %common = (score => $score);
