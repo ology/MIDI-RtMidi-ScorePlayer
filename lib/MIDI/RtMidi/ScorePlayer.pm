@@ -7,6 +7,7 @@ our $VERSION = '0.0118';
 use strict;
 use warnings;
 
+use Data::Dumper::Compact qw(ddc);
 use File::Basename qw(fileparse);
 use MIDI::RtMidi::FFI::Device ();
 use MIDI::Util qw(get_microseconds score2events);
@@ -48,7 +49,8 @@ use Time::HiRes qw(time usleep);
       loop     => 4, # loop limit if finite (default: 1)
       infinite => 0, # loop infinitely (default: 1)
       deposit  => 'path/prefix-', # optionally make a file after each loop
-      vebose   => 0, # show our progress (default: 1)
+      vebose   => 0, # print out text events (default: 0)
+      dump     => 0, # dump the score before each play (default: 0)
   )->play;
 
 =head1 DESCRIPTION
@@ -109,7 +111,8 @@ sub new {
     $opts{sleep}    //= 1;
     $opts{loop}     ||= 1;
     $opts{infinite} //= 1;
-    $opts{verbose}  //= 1;
+    $opts{verbose}  //= 0;
+    $opts{dump}     //= 0;
     $opts{deposit}  ||= '';
 
     if ($opts{deposit}) {
@@ -148,6 +151,7 @@ sub play {
 sub _play {
     my ($self) = @_;
     $self->_sync_parts;
+    print ddc($self->{score}) if $self->{dump};
     my $micros = get_microseconds($self->{score});
     my $events = score2events($self->{score});
     for my $event (@$events) {
