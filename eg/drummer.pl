@@ -14,7 +14,7 @@ use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
     # $terminal->Tputs('rs', 1, *STDOUT);
 # }
 
-my $bpm = 100;
+my $bpm  = 100;
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
