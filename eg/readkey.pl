@@ -10,7 +10,7 @@ use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
 use IO::Async::Loop ();
 
 my $loop = IO::Async::Loop->new;
-my $tka = Term::TermKey::Async->new(
+my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
   on_key => sub {
       my ($self, $key) = @_;
