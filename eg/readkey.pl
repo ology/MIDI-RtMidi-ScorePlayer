@@ -12,23 +12,23 @@ my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
   on_key => sub {
-      my ($self, $key) = @_;
-      # print 'Got key: ', $self->format_key($key, FORMAT_VIM), "\n";
+    my ($self, $key) = @_;
+    # print 'Got key: ', $self->format_key($key, FORMAT_VIM), "\n";
 
-      my $score = setup_score(lead_in => 0, bpm => 120);
-      my %common = (score => $score);
+    my $score = setup_score(lead_in => 0, bpm => 120);
+    my %common = (score => $score);
 
-      MIDI::RtMidi::ScorePlayer->new(
-        score    => $score,
-        parts    => [ \&part ],
-        common   => \%common,
-        sleep    => 0,
-        infinite => 0,
-      )->play;
+    MIDI::RtMidi::ScorePlayer->new(
+      score    => $score,
+      parts    => [ \&part ],
+      common   => \%common,
+      sleep    => 0,
+      infinite => 0,
+    )->play;
 
-      $loop->loop_stop if $key->type_is_unicode and
-                          $key->utf8 eq "C" and
-                          $key->modifiers & KEYMOD_CTRL;
+    $loop->loop_stop if $key->type_is_unicode and
+                        $key->utf8 eq "C" and
+                        $key->modifiers & KEYMOD_CTRL;
   },
 );
 
