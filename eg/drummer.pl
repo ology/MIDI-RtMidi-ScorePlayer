@@ -5,7 +5,6 @@ use warnings;
 use IO::Async::Loop ();
 use MIDI::Drummer::Tiny ();
 use MIDI::RtMidi::ScorePlayer ();
-use Music::Scales qw(get_scale_MIDI);
 use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
 
 my $verbose = shift || 0;
@@ -82,11 +81,6 @@ $loop->loop_forever;
 
 sub part {
   my (%args) = @_;
-
-  my @pitches = (
-    get_scale_MIDI('C', 4, 'major'),
-    get_scale_MIDI('C', 5, 'major'),
-  );
 
   my $part = sub {
     $args{$_}->(%args) for $args{parts}->@*;
