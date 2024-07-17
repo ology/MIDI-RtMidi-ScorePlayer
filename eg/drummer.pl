@@ -8,6 +8,8 @@ use MIDI::RtMidi::ScorePlayer ();
 use Music::Scales qw(get_scale_MIDI);
 use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
 
+my $verbose = shift || 0;
+
 my %common;
 my @parts;
 my $bpm  = 100;
@@ -17,7 +19,7 @@ my $tka  = Term::TermKey::Async->new(
   on_key => sub {
     my ($self, $key) = @_;
     my $pressed = $self->format_key($key, FORMAT_VIM);
-    print "Got key: $pressed\n";
+    # print "Got key: $pressed\n" if $verbose;
     if ($pressed eq 'p') {
       my $d = MIDI::Drummer::Tiny->new(
         bpm    => $bpm,
@@ -32,16 +34,20 @@ my $tka  = Term::TermKey::Async->new(
         sleep    => 0,
         infinite => 0,
       )->play;
+      print "Pay score\n" if $verbose;
     }
     elsif ($pressed eq 'b') {
       $bpm += 5;
+      print "BPM: $bpm\n" if $verbose;
     }
     elsif ($pressed eq 'B') {
       $bpm -= 5;
+      print "BPM: $bpm\n" if $verbose;
     }
     elsif ($pressed eq 'r') {
       %common = ();
       @parts  = ();
+      print "Reset score\n" if $verbose;
     }
     elsif ($pressed eq 's') {
       push @parts, 'snare';
@@ -50,6 +56,7 @@ my $tka  = Term::TermKey::Async->new(
         $args{drummer}->note('sn', $args{drummer}->snare)
           for 1 .. 4;
       };
+      print "Snare\n" if $verbose;
     }
     elsif ($pressed eq 'x') {
       push @parts, 'backbeat';
@@ -61,6 +68,7 @@ my $tka  = Term::TermKey::Async->new(
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
         ) for 1 .. $args{drummer}->beats;
       };
+      print "Backbeat\n" if $verbose;
     }
 
     $loop->loop_stop if $key->type_is_unicode and
