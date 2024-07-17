@@ -37,6 +37,9 @@ my $tka  = Term::TermKey::Async->new(
     elsif ($pressed eq 'B') {
       $bpm -= 5;
     }
+    elsif ($pressed eq 'r') {
+      %common = ();
+    }
     elsif ($pressed eq 's') {
       $common{snare} = sub {
         my (%args) = @_;
