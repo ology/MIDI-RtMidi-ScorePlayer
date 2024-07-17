@@ -9,6 +9,7 @@ use Music::Scales qw(get_scale_MIDI);
 use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
 
 my %common;
+my @parts;
 my $bpm  = 100;
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
@@ -23,6 +24,7 @@ my $tka  = Term::TermKey::Async->new(
         reverb => 15,
       );
       $common{drummer} = $d;
+      $common{parts}   = \@parts;
       MIDI::RtMidi::ScorePlayer->new(
         score    => $d->score,
         parts    => [ \&part ],
@@ -39,8 +41,10 @@ my $tka  = Term::TermKey::Async->new(
     }
     elsif ($pressed eq 'r') {
       %common = ();
+      @parts  = ();
     }
     elsif ($pressed eq 's') {
+      push @parts, 'snare';
       $common{snare} = sub {
         my (%args) = @_;
         $args{drummer}->note('sn', $args{drummer}->snare)
@@ -48,6 +52,7 @@ my $tka  = Term::TermKey::Async->new(
       };
     }
     elsif ($pressed eq 'x') {
+      push @parts, 'backbeat';
       $common{backbeat} = sub {
         my (%args) = @_;
         $args{drummer}->note(
@@ -76,8 +81,9 @@ sub part {
   );
 
   my $part = sub {
-    $args{snare}->(%args)    if exists $args{snare};
-    $args{backbeat}->(%args) if exists $args{backbeat};
+    for my $part ($args{parts}->@*) {
+      $args{$part}->(%args);
+    }
   };
 
   return $part;
