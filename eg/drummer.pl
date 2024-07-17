@@ -21,6 +21,7 @@ my $tka  = Term::TermKey::Async->new(
     # print "Got key: $pressed\n" if $verbose;
     # PLAY
     if ($pressed eq 'p') {
+      print "Play score\n" if $verbose;
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
       $common{parts}   = \@parts;
@@ -34,26 +35,26 @@ my $tka  = Term::TermKey::Async->new(
         sleep    => 0,
         infinite => 0,
       )->play;
-      print "Play score\n" if $verbose;
     }
     # FASTER
     elsif ($pressed eq 'b') {
-      $bpm += 5;
       print "BPM: $bpm\n" if $verbose;
+      $bpm += 5;
     }
     # SLOWER
     elsif ($pressed eq 'B') {
-      $bpm -= 5;
       print "BPM: $bpm\n" if $verbose;
+      $bpm -= 5;
     }
     # RESET
     elsif ($pressed eq 'r') {
+      print "Reset score\n" if $verbose;
       %common = ();
       @parts  = ();
-      print "Reset score\n" if $verbose;
     }
     # SNARE
     elsif ($pressed eq 's') {
+      print "Snare\n" if $verbose;
       push @parts, 'snare';
       my $part = sub {
         my (%args) = @_;
@@ -63,10 +64,10 @@ my $tka  = Term::TermKey::Async->new(
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
       $common{snare}   = $part;
-      print "Snare\n" if $verbose;
     }
     # BEAT
     elsif ($pressed eq 'x') {
+      print "Backbeat\n" if $verbose;
       push @parts, 'backbeat';
       my $part = sub {
         my (%args) = @_;
@@ -78,7 +79,6 @@ my $tka  = Term::TermKey::Async->new(
       };
       my $d = snippit($part, $bpm);
       $common{backbeat} = $part;
-      print "Backbeat\n" if $verbose;
     }
     # FINISH
     $loop->loop_stop if $key->type_is_unicode and
