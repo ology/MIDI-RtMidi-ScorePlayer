@@ -61,9 +61,8 @@ my $tka  = Term::TermKey::Async->new(
           for 1 .. 4;
       };
       my $d = snippit($part, $bpm);
-      $common{snare}   = $part;
       $common{drummer} = $d;
-      $common{parts}   = \@parts;
+      $common{snare}   = $part;
       print "Snare\n" if $verbose;
     }
     # BEAT
