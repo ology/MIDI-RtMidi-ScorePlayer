@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use MIDI::RtMidi::ScorePlayer ();
-use MIDI::Util qw(setup_score set_chan_patch);
+use MIDI::Util qw(setup_score);
 use Music::Scales qw(get_scale_MIDI);
 use Term::TermKey::Async ();
 use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
