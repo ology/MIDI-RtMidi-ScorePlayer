@@ -52,6 +52,18 @@ my $tka  = Term::TermKey::Async->new(
       %common = ();
       @parts  = ();
     }
+    # HIHAT
+    elsif ($pressed eq 'h') {
+      print "Hihat\n" if $verbose;
+      push @parts, 'hihat';
+      my $part = sub {
+        my (%args) = @_;
+        $args{drummer}->note('en', $args{drummer}->closed_hh);
+      };
+      my $d = snippit($part, $bpm);
+      $common{drummer} = $d;
+      $common{hihat}   = $part;
+    }
     # KICK
     elsif ($pressed eq 'k') {
       print "Kick\n" if $verbose;
