@@ -8,6 +8,7 @@ use MIDI::RtMidi::ScorePlayer ();
 use Music::Scales qw(get_scale_MIDI);
 use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
 
+my %common;
 my $bpm  = 100;
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
@@ -22,12 +23,12 @@ my $tka  = Term::TermKey::Async->new(
     elsif ($pressed eq 'B') {
       $bpm -= 5;
     }
-    elsif ($pressed eq 'x') {
+    elsif ($pressed eq 'p') {
       my $d = MIDI::Drummer::Tiny->new(
         bpm    => $bpm,
         reverb => 15,
       );
-      my %common = (drummer => $d);
+      $common{drummer} = $d;
       MIDI::RtMidi::ScorePlayer->new(
         score    => $d->score,
         parts    => [ \&part ],
