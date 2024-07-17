@@ -21,10 +21,7 @@ my $tka  = Term::TermKey::Async->new(
     # print "Got key: $pressed\n" if $verbose;
     # PLAY
     if ($pressed eq 'p') {
-      my $d = MIDI::Drummer::Tiny->new(
-        bpm    => $bpm,
-        reverb => 15,
-      );
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
       $common{parts}   = \@parts;
       MIDI::RtMidi::ScorePlayer->new(
@@ -58,17 +55,28 @@ my $tka  = Term::TermKey::Async->new(
     # SNARE
     elsif ($pressed eq 's') {
       push @parts, 'snare';
-      $common{snare} = sub {
+      my $snare = sub {
         my (%args) = @_;
         $args{drummer}->note('sn', $args{drummer}->snare)
           for 1 .. 4;
       };
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+      MIDI::RtMidi::ScorePlayer->new(
+        score  => $d->score,
+        common => \%common,
+        parts  => [ $snare ],
+        sleep    => 0,
+        infinite => 0,
+      )->play;
+      $common{snare}   = $snare;
+      $common{drummer} = $d;
+      $common{parts}   = \@parts;
       print "Snare\n" if $verbose;
     }
     # BEAT
     elsif ($pressed eq 'x') {
       push @parts, 'backbeat';
-      $common{backbeat} = sub {
+      my $backbeat = sub {
         my (%args) = @_;
         $args{drummer}->note(
           $args{drummer}->quarter,
@@ -76,6 +84,15 @@ my $tka  = Term::TermKey::Async->new(
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
         ) for 1 .. $args{drummer}->beats;
       };
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+      MIDI::RtMidi::ScorePlayer->new(
+        score  => $d->score,
+        common => \%common,
+        parts  => [ $backbeat ],
+        sleep    => 0,
+        infinite => 0,
+      )->play;
+      $common{backbeat} = $backbeat;
       print "Backbeat\n" if $verbose;
     }
     # FINISH
