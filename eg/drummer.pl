@@ -47,6 +47,16 @@ my $tka  = Term::TermKey::Async->new(
           for 1 .. 4;
       };
     }
+    elsif ($pressed eq 'x') {
+      $common{backbeat} = sub {
+        my (%args) = @_;
+        $args{drummer}->note(
+          $args{drummer}->quarter,
+          $args{drummer}->open_hh,
+          $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
+        ) for 1 .. $args{drummer}->beats;
+      };
+    }
 
     $loop->loop_stop if $key->type_is_unicode and
                         $key->utf8 eq "C" and
@@ -66,12 +76,8 @@ sub part {
   );
 
   my $part = sub {
-    $args{snare}->(%args) if exists $args{snare};
-    $args{drummer}->note(
-      $args{drummer}->quarter,
-      $args{drummer}->open_hh,
-      $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
-    ) for 1 .. $args{drummer}->beats;
+    $args{snare}->(%args)    if exists $args{snare};
+    $args{backbeat}->(%args) if exists $args{backbeat};
   };
 
   return $part;
