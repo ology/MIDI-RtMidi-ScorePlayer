@@ -19,6 +19,7 @@ my $tka  = Term::TermKey::Async->new(
     my ($self, $key) = @_;
     my $pressed = $self->format_key($key, FORMAT_VIM);
     # print "Got key: $pressed\n" if $verbose;
+    # PLAY
     if ($pressed eq 'p') {
       my $d = MIDI::Drummer::Tiny->new(
         bpm    => $bpm,
@@ -38,19 +39,23 @@ my $tka  = Term::TermKey::Async->new(
       )->play;
       print "Play score\n" if $verbose;
     }
+    # FASTER
     elsif ($pressed eq 'b') {
       $bpm += 5;
       print "BPM: $bpm\n" if $verbose;
     }
+    # SLOWER
     elsif ($pressed eq 'B') {
       $bpm -= 5;
       print "BPM: $bpm\n" if $verbose;
     }
+    # RESET
     elsif ($pressed eq 'r') {
       %common = ();
       @parts  = ();
       print "Reset score\n" if $verbose;
     }
+    # SNARE
     elsif ($pressed eq 's') {
       push @parts, 'snare';
       $common{snare} = sub {
@@ -60,6 +65,7 @@ my $tka  = Term::TermKey::Async->new(
       };
       print "Snare\n" if $verbose;
     }
+    # BEAT
     elsif ($pressed eq 'x') {
       push @parts, 'backbeat';
       $common{backbeat} = sub {
@@ -72,7 +78,7 @@ my $tka  = Term::TermKey::Async->new(
       };
       print "Backbeat\n" if $verbose;
     }
-
+    # FINISH
     $loop->loop_stop if $key->type_is_unicode and
                         $key->utf8 eq "C" and
                         $key->modifiers & KEYMOD_CTRL;
