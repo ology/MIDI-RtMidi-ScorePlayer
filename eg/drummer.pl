@@ -60,14 +60,7 @@ my $tka  = Term::TermKey::Async->new(
         $args{drummer}->note('sn', $args{drummer}->snare)
           for 1 .. 4;
       };
-      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
-      MIDI::RtMidi::ScorePlayer->new(
-        score  => $d->score,
-        common => { drummer => $d },
-        parts  => [ $part ],
-        sleep    => 0,
-        infinite => 0,
-      )->play;
+      my $d = snippit($part, $bpm);
       $common{snare}   = $part;
       $common{drummer} = $d;
       $common{parts}   = \@parts;
@@ -84,14 +77,7 @@ my $tka  = Term::TermKey::Async->new(
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
         ) for 1 .. $args{drummer}->beats;
       };
-      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
-      MIDI::RtMidi::ScorePlayer->new(
-        score  => $d->score,
-        common => { drummer => $d },
-        parts  => [ $part ],
-        sleep    => 0,
-        infinite => 0,
-      )->play;
+      my $d = snippit($part, $bpm);
       $common{backbeat} = $part;
       print "Backbeat\n" if $verbose;
     }
@@ -104,3 +90,16 @@ my $tka  = Term::TermKey::Async->new(
 
 $loop->add($tka);
 $loop->loop_forever;
+
+sub snippit {
+  my ($part, $bpm) = @_;
+  my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+  MIDI::RtMidi::ScorePlayer->new(
+    score  => $d->score,
+    common => { drummer => $d },
+    parts  => [ $part ],
+    sleep    => 0,
+    infinite => 0,
+  )->play;
+  return $d;
+}
