@@ -63,7 +63,7 @@ my $tka  = Term::TermKey::Async->new(
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       MIDI::RtMidi::ScorePlayer->new(
         score  => $d->score,
-        common => \%common,
+        common => { drummer => $d },
         parts  => [ $snare ],
         sleep    => 0,
         infinite => 0,
@@ -87,7 +87,7 @@ my $tka  = Term::TermKey::Async->new(
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       MIDI::RtMidi::ScorePlayer->new(
         score  => $d->score,
-        common => \%common,
+        common => { drummer => $d },
         parts  => [ $backbeat ],
         sleep    => 0,
         infinite => 0,
