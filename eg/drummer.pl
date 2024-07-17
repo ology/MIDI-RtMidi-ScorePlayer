@@ -27,9 +27,12 @@ my $tka  = Term::TermKey::Async->new(
       $common{drummer} = $d;
       $common{parts}   = \@parts;
       MIDI::RtMidi::ScorePlayer->new(
-        score    => $d->score,
-        parts    => [ \&part ],
-        common   => \%common,
+        score  => $d->score,
+        common => \%common,
+        parts  => [ sub {
+          my (%args) = @_;
+          return sub { $args{$_}->(%args) for $args{parts}->@* };
+        }],
         sleep    => 0,
         infinite => 0,
       )->play;
@@ -78,13 +81,3 @@ my $tka  = Term::TermKey::Async->new(
 
 $loop->add($tka);
 $loop->loop_forever;
-
-sub part {
-  my (%args) = @_;
-
-  my $part = sub {
-    $args{$_}->(%args) for $args{parts}->@*;
-  };
-
-  return $part;
-}
