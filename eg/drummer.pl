@@ -89,9 +89,7 @@ sub part {
   );
 
   my $part = sub {
-    for my $part ($args{parts}->@*) {
-      $args{$part}->(%args);
-    }
+    $args{$_}->(%args) for $args{parts}->@*;
   };
 
   return $part;
