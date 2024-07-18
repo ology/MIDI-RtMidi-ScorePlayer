@@ -12,6 +12,7 @@ my $verbose = shift || 0;
 my %common;
 my @parts;
 my $bpm  = 100;
+my $dura = 1;
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
@@ -36,6 +37,12 @@ my $tka  = Term::TermKey::Async->new(
         infinite => 0,
       )->play;
     }
+    # RESET
+    elsif ($pressed eq 'r') {
+      print "Reset score\n" if $verbose;
+      %common = ();
+      @parts  = ();
+    }
     # FASTER
     elsif ($pressed eq 'b') {
       print "BPM: $bpm\n" if $verbose;
@@ -46,19 +53,13 @@ my $tka  = Term::TermKey::Async->new(
       print "BPM: $bpm\n" if $verbose;
       $bpm -= 5;
     }
-    # RESET
-    elsif ($pressed eq 'r') {
-      print "Reset score\n" if $verbose;
-      %common = ();
-      @parts  = ();
-    }
     # HIHAT
     elsif ($pressed eq 'h') {
       print "Hihat\n" if $verbose;
       push @parts, 'hihat';
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note('en', $args{drummer}->closed_hh);
+        $args{drummer}->note('qn', $args{drummer}->closed_hh);
       };
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
