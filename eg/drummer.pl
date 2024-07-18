@@ -74,7 +74,7 @@ my $tka  = Term::TermKey::Async->new(
       push @parts, 'hihat';
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note('qn', $args{drummer}->closed_hh);
+        $args{drummer}->note($dura, $args{drummer}->closed_hh);
       };
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
@@ -86,7 +86,7 @@ my $tka  = Term::TermKey::Async->new(
       push @parts, 'kick';
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note('en', $args{drummer}->kick)
+        $args{drummer}->note($dura, $args{drummer}->kick)
           for 1 .. 2;
       };
       my $d = snippit($part, $bpm);
@@ -99,7 +99,7 @@ my $tka  = Term::TermKey::Async->new(
       push @parts, 'snare';
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note('sn', $args{drummer}->snare)
+        $args{drummer}->note($dura, $args{drummer}->snare)
           for 1 .. 4;
       };
       my $d = snippit($part, $bpm);
