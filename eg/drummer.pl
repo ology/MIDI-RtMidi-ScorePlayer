@@ -11,7 +11,6 @@ my $verbose = shift || 0;
 
 my %common;
 my @parts;
-my $part_num = 0;
 my $bpm  = 100;
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
@@ -58,12 +57,13 @@ my $tka  = Term::TermKey::Async->new(
       print "Hihat\n" if $verbose;
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note('en', $args{drummer}->closed_hh)
+        $args{drummer}->note($args{'hihat.duration'}, $args{drummer}->closed_hh)
           for 1 .. 4;
       };
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
-      $common{hihat}   = $part;
+      $common{'hihat.duration'} = 'en';
+      $common{hihat} = $part;
       push @parts, 'hihat';
     }
     # KICK
@@ -71,12 +71,13 @@ my $tka  = Term::TermKey::Async->new(
       print "Kick\n" if $verbose;
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note('qn', $args{drummer}->kick)
+        $args{drummer}->note($args{'kick.duration'}, $args{drummer}->kick)
           for 1 .. 2;
       };
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
-      $common{kick}    = $part;
+      $common{'kick.duration'} = 'qn';
+      $common{kick} = $part;
       push @parts, 'kick';
     }
     # SNARE
@@ -84,12 +85,13 @@ my $tka  = Term::TermKey::Async->new(
       print "Snare\n" if $verbose;
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note('sn', $args{drummer}->snare)
+        $args{drummer}->note($args{'snare.duration'}, $args{drummer}->snare)
           for 1 .. 4;
       };
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
-      $common{snare}   = $part;
+      $common{'snare.duration'} = 'sn';
+      $common{snare} = $part;
       push @parts, 'snare';
     }
     # BEAT
@@ -98,12 +100,13 @@ my $tka  = Term::TermKey::Async->new(
       my $part = sub {
         my (%args) = @_;
         $args{drummer}->note(
-          $args{drummer}->quarter,
+          $args{'backbeat.duration'},
           $args{drummer}->open_hh,
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
         ) for 1 .. $args{drummer}->beats;
       };
       my $d = snippit($part, $bpm);
+      $common{'backbeat.duration'} = 'qn';
       $common{backbeat} = $part;
       push @parts, 'backbeat';
     }
