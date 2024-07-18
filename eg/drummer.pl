@@ -88,49 +88,52 @@ my $tka  = Term::TermKey::Async->new(
     # KICK
     elsif ($pressed eq 'k') {
       print "Kick\n" if $verbose;
+      my $id = time();
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note($args{'kick.duration'}, $args{drummer}->kick)
+        $args{drummer}->note($args{'kick.duration.' . $id}, $args{drummer}->kick)
           for 1 .. 2;
       };
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
-      $common{'kick.duration'} = $dura;
-      $common{kick} = $part;
-      push @parts, 'kick';
+      $common{'kick.duration.' . $id} = $dura;
+      $common{'kick' . $id} = $part;
+      push @parts, 'kick' . $id;
       snippit($part, \%common);
     }
     # SNARE
     elsif ($pressed eq 's') {
       print "Snare\n" if $verbose;
+      my $id = time();
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note($args{'snare.duration'}, $args{drummer}->snare)
+        $args{drummer}->note($args{'snare.duration.' . $id}, $args{drummer}->snare)
           for 1 .. 4;
       };
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
-      $common{'snare.duration'} = $dura;
-      $common{snare} = $part;
-      push @parts, 'snare';
+      $common{'snare.duration.' . $id} = $dura;
+      $common{'snare' . $id} = $part;
+      push @parts, 'snare' . $id;
       snippit($part, \%common);
     }
     # BEAT
     elsif ($pressed eq 'x') {
       print "Backbeat\n" if $verbose;
+      my $id = time();
       my $part = sub {
         my (%args) = @_;
         $args{drummer}->note(
-          $args{'backbeat.duration'},
+          $args{'backbeat.duration.' . $id},
           $args{drummer}->open_hh,
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
         ) for 1 .. $args{drummer}->beats;
       };
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
-      $common{'backbeat.duration'} = $dura;
-      $common{backbeat} = $part;
-      push @parts, 'backbeat';
+      $common{'backbeat.duration.' . $id} = $dura;
+      $common{'backbeat' . $id} = $part;
+      push @parts, 'backbeat' . $id;
       snippit($part, \%common);
     }
     # FINISH
