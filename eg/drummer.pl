@@ -60,11 +60,12 @@ my $tka  = Term::TermKey::Async->new(
         $args{drummer}->note($args{'hihat.duration'}, $args{drummer}->closed_hh)
           for 1 .. 4;
       };
-      my $d = snippit($part, $bpm);
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
       $common{'hihat.duration'} = 'en';
       $common{hihat} = $part;
       push @parts, 'hihat';
+      snippit($part, \%common);
     }
     # KICK
     elsif ($pressed eq 'k') {
@@ -74,11 +75,12 @@ my $tka  = Term::TermKey::Async->new(
         $args{drummer}->note($args{'kick.duration'}, $args{drummer}->kick)
           for 1 .. 2;
       };
-      my $d = snippit($part, $bpm);
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
       $common{'kick.duration'} = 'qn';
       $common{kick} = $part;
       push @parts, 'kick';
+      snippit($part, \%common);
     }
     # SNARE
     elsif ($pressed eq 's') {
@@ -88,11 +90,12 @@ my $tka  = Term::TermKey::Async->new(
         $args{drummer}->note($args{'snare.duration'}, $args{drummer}->snare)
           for 1 .. 4;
       };
-      my $d = snippit($part, $bpm);
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
       $common{'snare.duration'} = 'sn';
       $common{snare} = $part;
       push @parts, 'snare';
+      snippit($part, \%common);
     }
     # BEAT
     elsif ($pressed eq 'x') {
@@ -105,10 +108,12 @@ my $tka  = Term::TermKey::Async->new(
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
         ) for 1 .. $args{drummer}->beats;
       };
-      my $d = snippit($part, $bpm);
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+      $common{drummer} = $d;
       $common{'backbeat.duration'} = 'qn';
       $common{backbeat} = $part;
       push @parts, 'backbeat';
+      snippit($part, \%common);
     }
     # FINISH
     $loop->loop_stop if $key->type_is_unicode and
@@ -121,14 +126,12 @@ $loop->add($tka);
 $loop->loop_forever;
 
 sub snippit {
-  my ($part, $bpm) = @_;
-  my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+  my ($part, $common) = @_;
   MIDI::RtMidi::ScorePlayer->new(
-    score  => $d->score,
-    common => { drummer => $d },
+    score  => $common->{drummer}->score,
+    common => $common,
     parts  => [ $part ],
     sleep    => 0,
     infinite => 0,
   )->play;
-  return $d;
 }
