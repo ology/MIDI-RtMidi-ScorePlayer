@@ -45,13 +45,28 @@ my $tka  = Term::TermKey::Async->new(
     }
     # FASTER
     elsif ($pressed eq 'b') {
-      print "BPM: $bpm\n" if $verbose;
       $bpm += 5;
+      print "BPM: $bpm\n" if $verbose;
     }
     # SLOWER
     elsif ($pressed eq 'B') {
-      print "BPM: $bpm\n" if $verbose;
       $bpm -= 5;
+      print "BPM: $bpm\n" if $verbose;
+    }
+    # EIGHTH
+    elsif ($pressed eq '2') {
+      $dura = 'sn';
+      print "Duration: $dura\n" if $verbose;
+    }
+    # QUARTER
+    elsif ($pressed eq '3') {
+      $dura = 'en';
+      print "Duration: $dura\n" if $verbose;
+    }
+    # QUARTER
+    elsif ($pressed eq '4') {
+      $dura = 'qn';
+      print "Duration: $dura\n" if $verbose;
     }
     # HIHAT
     elsif ($pressed eq 'h') {
