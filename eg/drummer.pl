@@ -6,6 +6,7 @@ use IO::Async::Loop ();
 use MIDI::Drummer::Tiny ();
 use MIDI::RtMidi::ScorePlayer ();
 use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
+use Time::HiRes qw(time);
 
 my $verbose = shift || 0;
 
@@ -71,16 +72,17 @@ my $tka  = Term::TermKey::Async->new(
     # HIHAT
     elsif ($pressed eq 'h') {
       print "Hihat\n" if $verbose;
+      my $id = time();
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note($args{'hihat.duration'}, $args{drummer}->closed_hh)
+        $args{drummer}->note($args{'hihat.duration.' . $id}, $args{drummer}->closed_hh)
           for 1 .. 4;
       };
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
-      $common{'hihat.duration'} = $dura;
-      $common{hihat} = $part;
-      push @parts, 'hihat';
+      $common{'hihat.duration.' . $id} = $dura;
+      $common{'hihat' . $id} = $part;
+      push @parts, 'hihat' . $id;
       snippit($part, \%common);
     }
     # KICK
