@@ -12,7 +12,6 @@ my $verbose = shift || 0;
 my %common;
 my @parts;
 my $bpm  = 100;
-my $dura = 'qn';
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
@@ -53,28 +52,14 @@ my $tka  = Term::TermKey::Async->new(
       $bpm -= 5;
       print "BPM: $bpm\n" if $verbose;
     }
-    # EIGHTH
-    elsif ($pressed eq '2') {
-      $dura = 'sn';
-      print "Duration: $dura\n" if $verbose;
-    }
-    # QUARTER
-    elsif ($pressed eq '3') {
-      $dura = 'en';
-      print "Duration: $dura\n" if $verbose;
-    }
-    # QUARTER
-    elsif ($pressed eq '4') {
-      $dura = 'qn';
-      print "Duration: $dura\n" if $verbose;
-    }
     # HIHAT
     elsif ($pressed eq 'h') {
       print "Hihat\n" if $verbose;
       push @parts, 'hihat';
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note($dura, $args{drummer}->closed_hh);
+        $args{drummer}->note('en', $args{drummer}->closed_hh)
+          for 1 .. 4;
       };
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
@@ -86,7 +71,7 @@ my $tka  = Term::TermKey::Async->new(
       push @parts, 'kick';
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note($dura, $args{drummer}->kick)
+        $args{drummer}->note('qn', $args{drummer}->kick)
           for 1 .. 2;
       };
       my $d = snippit($part, $bpm);
@@ -99,7 +84,7 @@ my $tka  = Term::TermKey::Async->new(
       push @parts, 'snare';
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note($dura, $args{drummer}->snare)
+        $args{drummer}->note('sn', $args{drummer}->snare)
           for 1 .. 4;
       };
       my $d = snippit($part, $bpm);
