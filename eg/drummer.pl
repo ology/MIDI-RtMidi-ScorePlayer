@@ -12,6 +12,7 @@ my $verbose = shift || 0;
 my %common;
 my @parts;
 my $bpm  = 100;
+my $dura = 'qn';
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
@@ -52,6 +53,21 @@ my $tka  = Term::TermKey::Async->new(
       $bpm -= 5;
       print "BPM: $bpm\n" if $verbose;
     }
+    # SIXTEENTH
+    elsif ($pressed eq '2') {
+      $dura = 'sn';
+      print "Duration: $dura\n" if $verbose;
+    }
+    # EIGHTH
+    elsif ($pressed eq '3') {
+      $dura = 'en';
+      print "Duration: $dura\n" if $verbose;
+    }
+    # QUARTER
+    elsif ($pressed eq '4') {
+      $dura = 'qn';
+      print "Duration: $dura\n" if $verbose;
+    }
     # HIHAT
     elsif ($pressed eq 'h') {
       print "Hihat\n" if $verbose;
@@ -62,7 +78,7 @@ my $tka  = Term::TermKey::Async->new(
       };
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
-      $common{'hihat.duration'} = 'en';
+      $common{'hihat.duration'} = $dura;
       $common{hihat} = $part;
       push @parts, 'hihat';
       snippit($part, \%common);
@@ -77,7 +93,7 @@ my $tka  = Term::TermKey::Async->new(
       };
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
-      $common{'kick.duration'} = 'qn';
+      $common{'kick.duration'} = $dura;
       $common{kick} = $part;
       push @parts, 'kick';
       snippit($part, \%common);
@@ -92,7 +108,7 @@ my $tka  = Term::TermKey::Async->new(
       };
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
-      $common{'snare.duration'} = 'sn';
+      $common{'snare.duration'} = $dura;
       $common{snare} = $part;
       push @parts, 'snare';
       snippit($part, \%common);
@@ -110,7 +126,7 @@ my $tka  = Term::TermKey::Async->new(
       };
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
-      $common{'backbeat.duration'} = 'qn';
+      $common{'backbeat.duration'} = $dura;
       $common{backbeat} = $part;
       push @parts, 'backbeat';
       snippit($part, \%common);
