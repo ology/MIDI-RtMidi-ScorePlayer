@@ -81,8 +81,8 @@ my $tka  = Term::TermKey::Async->new(
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
       $common{'hihat.duration.' . $id} = $dura;
-      $common{'hihat' . $id} = $part;
-      push @parts, 'hihat' . $id;
+      $common{'hihat.' . $id} = $part;
+      push @parts, 'hihat.' . $id;
       snippit($part, \%common);
     }
     # KICK
@@ -97,8 +97,8 @@ my $tka  = Term::TermKey::Async->new(
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
       $common{'kick.duration.' . $id} = $dura;
-      $common{'kick' . $id} = $part;
-      push @parts, 'kick' . $id;
+      $common{'kick.' . $id} = $part;
+      push @parts, 'kick.' . $id;
       snippit($part, \%common);
     }
     # SNARE
@@ -113,8 +113,8 @@ my $tka  = Term::TermKey::Async->new(
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
       $common{'snare.duration.' . $id} = $dura;
-      $common{'snare' . $id} = $part;
-      push @parts, 'snare' . $id;
+      $common{'snare.' . $id} = $part;
+      push @parts, 'snare.' . $id;
       snippit($part, \%common);
     }
     # BEAT
@@ -132,8 +132,8 @@ my $tka  = Term::TermKey::Async->new(
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
       $common{drummer} = $d;
       $common{'backbeat.duration.' . $id} = $dura;
-      $common{'backbeat' . $id} = $part;
-      push @parts, 'backbeat' . $id;
+      $common{'backbeat.' . $id} = $part;
+      push @parts, 'backbeat.' . $id;
       snippit($part, \%common);
     }
     # FINISH
