@@ -11,6 +11,7 @@ my $verbose = shift || 0;
 
 my %common;
 my @parts;
+my $part_num = 0;
 my $bpm  = 100;
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
@@ -55,7 +56,6 @@ my $tka  = Term::TermKey::Async->new(
     # HIHAT
     elsif ($pressed eq 'h') {
       print "Hihat\n" if $verbose;
-      push @parts, 'hihat';
       my $part = sub {
         my (%args) = @_;
         $args{drummer}->note('en', $args{drummer}->closed_hh)
@@ -64,11 +64,11 @@ my $tka  = Term::TermKey::Async->new(
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
       $common{hihat}   = $part;
+      push @parts, 'hihat';
     }
     # KICK
     elsif ($pressed eq 'k') {
       print "Kick\n" if $verbose;
-      push @parts, 'kick';
       my $part = sub {
         my (%args) = @_;
         $args{drummer}->note('qn', $args{drummer}->kick)
@@ -77,11 +77,11 @@ my $tka  = Term::TermKey::Async->new(
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
       $common{kick}    = $part;
+      push @parts, 'kick';
     }
     # SNARE
     elsif ($pressed eq 's') {
       print "Snare\n" if $verbose;
-      push @parts, 'snare';
       my $part = sub {
         my (%args) = @_;
         $args{drummer}->note('sn', $args{drummer}->snare)
@@ -90,11 +90,11 @@ my $tka  = Term::TermKey::Async->new(
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
       $common{snare}   = $part;
+      push @parts, 'snare';
     }
     # BEAT
     elsif ($pressed eq 'x') {
       print "Backbeat\n" if $verbose;
-      push @parts, 'backbeat';
       my $part = sub {
         my (%args) = @_;
         $args{drummer}->note(
@@ -105,6 +105,7 @@ my $tka  = Term::TermKey::Async->new(
       };
       my $d = snippit($part, $bpm);
       $common{backbeat} = $part;
+      push @parts, 'backbeat';
     }
     # FINISH
     $loop->loop_stop if $key->type_is_unicode and
