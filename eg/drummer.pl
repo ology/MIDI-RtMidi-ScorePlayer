@@ -12,7 +12,7 @@ my $verbose = shift || 0;
 my %common;
 my @parts;
 my $bpm  = 100;
-my $dura = 1;
+my $dura = 'qn';
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
@@ -91,7 +91,7 @@ my $tka  = Term::TermKey::Async->new(
       };
       my $d = snippit($part, $bpm);
       $common{drummer} = $d;
-      $common{kick}   = $part;
+      $common{kick}    = $part;
     }
     # SNARE
     elsif ($pressed eq 's') {
