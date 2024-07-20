@@ -26,7 +26,7 @@ my $tka  = Term::TermKey::Async->new(
     my ($self, $key) = @_;
     my $pressed = $self->format_key($key, FORMAT_VIM);
     # print "Got key: $pressed\n" if $verbose;
-    # PLAY
+    # PLAY SCORE
     if ($pressed eq 'p') {
       print "Play score\n" if $verbose;
       my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
@@ -43,16 +43,16 @@ my $tka  = Term::TermKey::Async->new(
         infinite => 0,
       )->play;
     }
-    # RESET
+    # RESET SCORE
     elsif ($pressed eq 'r') {
       print "Reset score\n" if $verbose;
       %common = ();
       @parts  = ();
     }
-    # WRITE TO FILE
+    # WRITE SCORE TO FILE
     elsif ($pressed eq 'w') {
       my $file = './rt-drummer.mid';
-      # TODO $score->write_score($file);
+      $common{drummer}->write_score($file);
       print "Wrote to $file\n" if $verbose;
     }
     # SERIAL MODE
