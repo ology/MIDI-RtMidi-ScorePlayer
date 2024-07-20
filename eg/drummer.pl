@@ -18,6 +18,7 @@ my %common;
 my @parts;
 my $bpm  = 100;
 my $dura = 'qn';
+my $mode = 'serial';
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
@@ -47,6 +48,16 @@ my $tka  = Term::TermKey::Async->new(
       print "Reset score\n" if $verbose;
       %common = ();
       @parts  = ();
+    }
+    # SERIAL MODE
+    elsif ($pressed eq 'm') {
+      $mode = 'serial';
+      print "Mode: $mode\n" if $verbose;
+    }
+    # PARALLEL MODE
+    elsif ($pressed eq 'M') {
+      $mode = 'parallel';
+      print "Mode: $mode\n" if $verbose;
     }
     # FASTER
     elsif ($pressed eq 'b') {
