@@ -90,14 +90,16 @@ my $tka  = Term::TermKey::Async->new(
       my $id = time();
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note($args{'hihat.duration.' . $id}, $args{drummer}->closed_hh)
-          for 1 .. 4;
+        $args{drummer}->note(
+          $args{'hihat.duration.' . $id},
+          $args{drummer}->closed_hh
+        );
       };
-      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
-      $common{drummer} = $d;
       $common{'hihat.duration.' . $id} = $dura;
       $common{'hihat.' . $id} = $part;
       push @parts, 'hihat.' . $id;
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+      $common{drummer} = $d;
       snippit($part, \%common);
     }
     # KICK
@@ -106,14 +108,16 @@ my $tka  = Term::TermKey::Async->new(
       my $id = time();
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note($args{'kick.duration.' . $id}, $args{drummer}->kick)
-          for 1 .. 2;
+        $args{drummer}->note(
+          $args{'kick.duration.' . $id},
+          $args{drummer}->kick
+        );
       };
-      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
-      $common{drummer} = $d;
       $common{'kick.duration.' . $id} = $dura;
       $common{'kick.' . $id} = $part;
       push @parts, 'kick.' . $id;
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+      $common{drummer} = $d;
       snippit($part, \%common);
     }
     # SNARE
@@ -122,14 +126,16 @@ my $tka  = Term::TermKey::Async->new(
       my $id = time();
       my $part = sub {
         my (%args) = @_;
-        $args{drummer}->note($args{'snare.duration.' . $id}, $args{drummer}->snare)
-          for 1 .. 4;
+        $args{drummer}->note(
+          $args{'snare.duration.' . $id},
+          $args{drummer}->snare
+        );
       };
-      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
-      $common{drummer} = $d;
       $common{'snare.duration.' . $id} = $dura;
       $common{'snare.' . $id} = $part;
       push @parts, 'snare.' . $id;
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+      $common{drummer} = $d;
       snippit($part, \%common);
     }
     # BEAT
@@ -142,13 +148,13 @@ my $tka  = Term::TermKey::Async->new(
           $args{'backbeat.duration.' . $id},
           $args{drummer}->open_hh,
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
-        ) for 1 .. $args{drummer}->beats;
+        );
       };
-      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
-      $common{drummer} = $d;
       $common{'backbeat.duration.' . $id} = $dura;
       $common{'backbeat.' . $id} = $part;
       push @parts, 'backbeat.' . $id;
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+      $common{drummer} = $d;
       snippit($part, \%common);
     }
     # FINISH
