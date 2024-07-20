@@ -2,7 +2,8 @@
 use strict;
 use warnings;
 
-# WORK IN PROGRESS. YMMV. Use The Source, Luke.
+# WORK IN PROGRESS. YMMV.
+# Use The Source, Luke.
 # Patches welcome!
 
 use IO::Async::Loop ();
