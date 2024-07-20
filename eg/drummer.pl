@@ -49,6 +49,12 @@ my $tka  = Term::TermKey::Async->new(
       %common = ();
       @parts  = ();
     }
+    # WRITE TO FILE
+    elsif ($pressed eq 'w') {
+      my $file = './rt-drummer.mid';
+      # TODO $score->write_score($file);
+      print "Wrote to $file\n" if $verbose;
+    }
     # SERIAL MODE
     elsif ($pressed eq 'm') {
       $mode = 'serial';
