@@ -148,7 +148,7 @@ my $tka  = Term::TermKey::Async->new(
           $args{'backbeat.duration.' . $id},
           $args{drummer}->open_hh,
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
-        ) for 1 .. $args{drummer}->beats;
+        ) for 1 .. int($args{drummer}->beats / 2);
       };
       $common{'backbeat.duration.' . $id} = $dura;
       $common{'backbeat.' . $id} = $part;
