@@ -29,7 +29,10 @@ my $tka  = Term::TermKey::Async->new(
     # PLAY SCORE
     if ($pressed eq 'p') {
       print "Play score\n" if $verbose;
-      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+      my $d = MIDI::Drummer::Tiny->new(
+        bpm  => $bpm,
+        file => 'rt-drummer.mid',
+      );
       $common{drummer} = $d;
       $common{parts}   = \@parts;
       MIDI::RtMidi::ScorePlayer->new(
@@ -51,8 +54,8 @@ my $tka  = Term::TermKey::Async->new(
     }
     # WRITE SCORE TO FILE
     elsif ($pressed eq 'w') {
-      my $file = './rt-drummer.mid';
-      $common{drummer}->write_score($file);
+      my $file = $common{drummer}->file;
+      $common{drummer}->write;
       print "Wrote to $file\n" if $verbose;
     }
     # SERIAL MODE
