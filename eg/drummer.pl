@@ -63,6 +63,7 @@ my $tka  = Term::TermKey::Async->new(
         parts    => $parts,
         sleep    => 0,
         infinite => 0,
+        dump     => 1,
       )->play;
     }
     # RESET SCORE
@@ -288,21 +289,6 @@ my $tka  = Term::TermKey::Async->new(
       $common{'backbeat.' . $id} = $part;
       push @parts, 'backbeat.' . $id;
       snippit($part, \%common);
-    }
-    # DOUBLE BEAT REST
-    elsif ($pressed eq '<C-X>') {
-      print "Double backbeat rest\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        my $size = dura_size($args{'backbeat.duration.' . $id});
-        my $x = $size * 2;
-        my $twice = reverse_dump('length')->{$x};
-        $args{drummer}->rest($twice);
-      };
-      $common{'backbeat.duration.' . $id} = $dura;
-      $common{'backbeat.' . $id} = $part;
-      push @parts, 'backbeat.' . $id;
     }
     # FINISH
     $loop->loop_stop if $key->type_is_unicode and
