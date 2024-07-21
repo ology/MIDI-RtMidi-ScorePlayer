@@ -115,20 +115,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # HIHAT
     elsif ($pressed eq 'h') {
-      play_patch('hithat');
-      print "Hihat\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->note(
-          $args{'hihat.duration.' . $id},
-          $args{drummer}->closed_hh
-        );
-      };
-      $common{'hihat.duration.' . $id} = $dura;
-      $common{'hihat.' . $id} = $part;
-      push @parts, 'hihat.' . $id;
-      snippit($part, \%common);
+      play_patch('hithat', 'closed_hh');
     }
     # HIHAT REST
     elsif ($pressed eq '<Backspace>') { # same key as <C-h>
@@ -136,38 +123,14 @@ my $tka  = Term::TermKey::Async->new(
     }
     # CRASH
     elsif ($pressed eq 'a') {
-      print "Crash 1\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->note(
-          $args{'crash1.duration.' . $id},
-          $args{drummer}->crash1
-        );
-      };
-      $common{'crash1.duration.' . $id} = $dura;
-      $common{'crash1.' . $id} = $part;
-      push @parts, 'crash1.' . $id;
-      snippit($part, \%common);
+      play_patch('crash1', 'crash1');
     }
     # CRASH1 REST
     elsif ($pressed eq '<C-a>') {
       rest_patch('crash1');
     }
     elsif ($pressed eq 'q') {
-      print "Crash 2\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->note(
-          $args{'crash2.duration.' . $id},
-          $args{drummer}->crash2
-        );
-      };
-      $common{'crash2.duration.' . $id} = $dura;
-      $common{'crash2.' . $id} = $part;
-      push @parts, 'crash2.' . $id;
-      snippit($part, \%common);
+      play_patch('crash2', 'crash1');
     }
     # CRASH2 REST
     elsif ($pressed eq '<C-q>') {
@@ -175,19 +138,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # KICK
     elsif ($pressed eq 'k') {
-      print "Kick\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->note(
-          $args{'kick.duration.' . $id},
-          $args{drummer}->kick
-        );
-      };
-      $common{'kick.duration.' . $id} = $dura;
-      $common{'kick.' . $id} = $part;
-      push @parts, 'kick.' . $id;
-      snippit($part, \%common);
+      play_patch('kick', 'kick');
     }
     # KICK REST
     elsif ($pressed eq '<C-k>') {
@@ -195,19 +146,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # SNARE
     elsif ($pressed eq 's') {
-      print "Snare\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->note(
-          $args{'snare.duration.' . $id},
-          $args{drummer}->snare
-        );
-      };
-      $common{'snare.duration.' . $id} = $dura;
-      $common{'snare.' . $id} = $part;
-      push @parts, 'snare.' . $id;
-      snippit($part, \%common);
+      play_patch('snare', 'snare');
     }
     # SNARE REST
     elsif ($pressed eq '<C-s>') {
