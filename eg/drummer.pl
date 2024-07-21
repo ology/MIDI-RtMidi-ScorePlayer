@@ -20,6 +20,7 @@ my @parts;
 my $bpm  = 100;
 my $dura = 'qn';
 my $mode = 'serial';
+print "State: BPM=$bpm, Duration=$dura, Mode=$mode\n";
 my $loop = IO::Async::Loop->new;
 my $tka  = Term::TermKey::Async->new(
   term   => \*STDIN,
