@@ -167,7 +167,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # BASIC BEAT
     elsif ($pressed eq 'x') {
-      print "Basic ackbeat\n" if $verbose;
+      print "Basic backbeat\n" if $verbose;
       my $id = time();
       my $part = sub {
         my (%args) = @_;
