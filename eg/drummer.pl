@@ -131,15 +131,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # HIHAT REST
     elsif ($pressed eq '<Backspace>') { # same key as <C-h>
-      print "Hihat rest\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->rest($args{'hihat.duration.' . $id});
-      };
-      $common{'hihat.duration.' . $id} = $dura;
-      $common{'hihat.' . $id} = $part;
-      push @parts, 'hihat.' . $id;
+      rest_patch('hihat');
     }
     # CRASH
     elsif ($pressed eq 'a') {
@@ -159,15 +151,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # CRASH1 REST
     elsif ($pressed eq '<C-a>') {
-      print "Crash 1 rest\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->rest($args{'crash1.duration.' . $id});
-      };
-      $common{'crash1.duration.' . $id} = $dura;
-      $common{'crash1.' . $id} = $part;
-      push @parts, 'crash1.' . $id;
+      rest_patch('crash1');
     }
     elsif ($pressed eq 'q') {
       print "Crash 2\n" if $verbose;
@@ -186,15 +170,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # CRASH2 REST
     elsif ($pressed eq '<C-q>') {
-      print "Crash2 rest\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->rest($args{'crash2.duration.' . $id});
-      };
-      $common{'crash2.duration.' . $id} = $dura;
-      $common{'crash2.' . $id} = $part;
-      push @parts, 'crash2.' . $id;
+      rest_patch('crash2');
     }
     # KICK
     elsif ($pressed eq 'k') {
@@ -214,15 +190,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # KICK REST
     elsif ($pressed eq '<C-k>') {
-      print "Kick rest\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->rest($args{'kick.duration.' . $id});
-      };
-      $common{'kick.duration.' . $id} = $dura;
-      $common{'kick.' . $id} = $part;
-      push @parts, 'kick.' . $id;
+      rest_patch('kick');
     }
     # SNARE
     elsif ($pressed eq 's') {
@@ -242,15 +210,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # SNARE REST
     elsif ($pressed eq '<C-s>') {
-      print "Snare rest\n" if $verbose;
-      my $id = time();
-      my $part = sub {
-        my (%args) = @_;
-        $args{drummer}->rest($args{'snare.duration.' . $id});
-      };
-      $common{'snare.duration.' . $id} = $dura;
-      $common{'snare.' . $id} = $part;
-      push @parts, 'snare.' . $id;
+      rest_patch('snare');
     }
     # BASIC BEAT
     elsif ($pressed eq 'x') {
