@@ -36,7 +36,7 @@ my $tka  = Term::TermKey::Async->new(
       );
       $common{drummer} = $d;
       $common{parts}   = \@parts;
-      my $parts;
+      my $parts = [];
       if ($mode eq 'serial') {
         $parts = [ sub {
           my (%args) = @_;
@@ -44,7 +44,6 @@ my $tka  = Term::TermKey::Async->new(
         } ];
       }
       elsif ($mode eq 'parallel') {
-        $parts = [];
         my %by_name;
         for my $part (@parts) {
           my ($name) = split /\./, $part;
