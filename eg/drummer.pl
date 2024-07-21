@@ -35,13 +35,32 @@ my $tka  = Term::TermKey::Async->new(
       );
       $common{drummer} = $d;
       $common{parts}   = \@parts;
-      MIDI::RtMidi::ScorePlayer->new(
-        score  => $d->score,
-        common => \%common,
-        parts  => [ sub {
+      my $parts;
+      if ($mode eq 'serial') {
+        $parts = [ sub {
           my (%args) = @_;
           return sub { $args{$_}->(%args) for $args{parts}->@* };
-        }],
+        } ];
+      }
+      elsif ($mode eq 'parallel') {
+        $parts = [];
+        my %by_name;
+        for my $part (@parts) {
+          my ($name) = split /\./, $part;
+          push $by_name{$name}->@*, $common{$part};
+        }
+        for my $part (keys %by_name) {
+          my $p = sub {
+            my (%args) = @_;
+            return sub { $_->(%args) for $by_name{$part}->@* };
+          };
+          push @$parts, $p;
+        }
+      }
+      MIDI::RtMidi::ScorePlayer->new(
+        score    => $d->score,
+        common   => \%common,
+        parts    => $parts,
         sleep    => 0,
         infinite => 0,
       )->play;
