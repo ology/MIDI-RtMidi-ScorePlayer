@@ -89,12 +89,12 @@ my $tka  = Term::TermKey::Async->new(
     }
     # FASTER
     elsif ($pressed eq 'b') {
-      $bpm += 5;
+      $bpm += 5 if $bpm < 127;
       print "BPM: $bpm\n" if $verbose;
     }
     # SLOWER
     elsif ($pressed eq 'B') {
-      $bpm -= 5;
+      $bpm -= 5 if $bpm > 0;
       print "BPM: $bpm\n" if $verbose;
     }
     # SIXTEENTH
