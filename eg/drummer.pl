@@ -9,6 +9,7 @@ use warnings;
 use IO::Async::Loop ();
 use MIDI::Drummer::Tiny ();
 use MIDI::RtMidi::ScorePlayer ();
+use MIDI::Util qw(dura_size reverse_dump);
 use Term::TermKey::Async qw(FORMAT_VIM KEYMOD_CTRL);
 use Time::HiRes qw(time);
 
@@ -126,8 +127,6 @@ my $tka  = Term::TermKey::Async->new(
       $common{'hihat.duration.' . $id} = $dura;
       $common{'hihat.' . $id} = $part;
       push @parts, 'hihat.' . $id;
-      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
-      $common{drummer} = $d;
       snippit($part, \%common);
     }
     # KICK
@@ -166,7 +165,7 @@ my $tka  = Term::TermKey::Async->new(
       $common{drummer} = $d;
       snippit($part, \%common);
     }
-    # BEAT
+    # BASIC BEAT
     elsif ($pressed eq 'x') {
       print "Backbeat\n" if $verbose;
       my $id = time();
@@ -176,6 +175,27 @@ my $tka  = Term::TermKey::Async->new(
           $args{'backbeat.duration.' . $id},
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
         ) for 1 .. int($args{drummer}->beats / 2);
+      };
+      $common{'backbeat.duration.' . $id} = $dura;
+      $common{'backbeat.' . $id} = $part;
+      push @parts, 'backbeat.' . $id;
+      my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+      $common{drummer} = $d;
+      snippit($part, \%common);
+    }
+    # DOUBLE KICK BEAT
+    elsif ($pressed eq 'X') {
+      print "Backbeat\n" if $verbose;
+      my $id = time();
+      my $part = sub {
+        my (%args) = @_;
+        my $size = dura_size($args{'backbeat.duration.' . $id});
+        my $x = $size / 2;
+        my $half = reverse_dump('length')->{$x};
+        $args{drummer}->note($half, $args{drummer}->kick);
+        $args{drummer}->note($half, $args{drummer}->kick);
+        $args{drummer}->note($half, $args{drummer}->snare);
+        $args{drummer}->rest($half);
       };
       $common{'backbeat.duration.' . $id} = $dura;
       $common{'backbeat.' . $id} = $part;
@@ -196,8 +216,10 @@ $loop->loop_forever;
 
 sub snippit {
   my ($part, $common) = @_;
+  my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
+  $common{drummer} = $d;
   MIDI::RtMidi::ScorePlayer->new(
-    score  => $common->{drummer}->score,
+    score  => $d->score,
     common => $common,
     parts  => [ $part ],
     sleep    => 0,
