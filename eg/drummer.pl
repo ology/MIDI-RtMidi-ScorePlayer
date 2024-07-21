@@ -128,6 +128,18 @@ my $tka  = Term::TermKey::Async->new(
       push @parts, 'hihat.' . $id;
       snippit($part, \%common);
     }
+    # HIHAT REST
+    elsif ($pressed eq '<C-h>') {
+      print "Hihat rest\n" if $verbose;
+      my $id = time();
+      my $part = sub {
+        my (%args) = @_;
+        $args{drummer}->rest($args{'hihat.duration.' . $id});
+      };
+      $common{'hihat.duration.' . $id} = $dura;
+      $common{'hihat.' . $id} = $part;
+      push @parts, 'hihat.' . $id;
+    }
     # KICK
     elsif ($pressed eq 'k') {
       print "Kick\n" if $verbose;
@@ -143,6 +155,18 @@ my $tka  = Term::TermKey::Async->new(
       $common{'kick.' . $id} = $part;
       push @parts, 'kick.' . $id;
       snippit($part, \%common);
+    }
+    # KICK REST
+    elsif ($pressed eq '<C-k>') {
+      print "Kick rest\n" if $verbose;
+      my $id = time();
+      my $part = sub {
+        my (%args) = @_;
+        $args{drummer}->rest($args{'kick.duration.' . $id});
+      };
+      $common{'kick.duration.' . $id} = $dura;
+      $common{'kick.' . $id} = $part;
+      push @parts, 'kick.' . $id;
     }
     # SNARE
     elsif ($pressed eq 's') {
@@ -160,6 +184,18 @@ my $tka  = Term::TermKey::Async->new(
       push @parts, 'snare.' . $id;
       snippit($part, \%common);
     }
+    # SNARE REST
+    elsif ($pressed eq '<C-s>') {
+      print "Snare rest\n" if $verbose;
+      my $id = time();
+      my $part = sub {
+        my (%args) = @_;
+        $args{drummer}->rest($args{'snare.duration.' . $id});
+      };
+      $common{'snare.duration.' . $id} = $dura;
+      $common{'snare.' . $id} = $part;
+      push @parts, 'snare.' . $id;
+    }
     # BASIC BEAT
     elsif ($pressed eq 'x') {
       print "Basic backbeat\n" if $verbose;
@@ -175,6 +211,21 @@ my $tka  = Term::TermKey::Async->new(
       $common{'backbeat.' . $id} = $part;
       push @parts, 'backbeat.' . $id;
       snippit($part, \%common);
+    }
+    # BASIC BEAT REST
+    elsif ($pressed eq '<C-x>') {
+      print "Basic backbeat rest\n" if $verbose;
+      my $id = time();
+      my $part = sub {
+        my (%args) = @_;
+        my $size = dura_size($args{'backbeat.duration.' . $id});
+        my $x = $size * 2;
+        my $twice = reverse_dump('length')->{$x};
+        $args{drummer}->rest($twice);
+      };
+      $common{'backbeat.duration.' . $id} = $dura;
+      $common{'backbeat.' . $id} = $part;
+      push @parts, 'backbeat.' . $id;
     }
     # DOUBLE KICK BEAT
     elsif ($pressed eq 'X') {
@@ -194,6 +245,21 @@ my $tka  = Term::TermKey::Async->new(
       $common{'backbeat.' . $id} = $part;
       push @parts, 'backbeat.' . $id;
       snippit($part, \%common);
+    }
+    # DOUBLE BEAT REST
+    elsif ($pressed eq '<C-X>') {
+      print "Double backbeat rest\n" if $verbose;
+      my $id = time();
+      my $part = sub {
+        my (%args) = @_;
+        my $size = dura_size($args{'backbeat.duration.' . $id});
+        my $x = $size * 2;
+        my $twice = reverse_dump('length')->{$x};
+        $args{drummer}->rest($twice);
+      };
+      $common{'backbeat.duration.' . $id} = $dura;
+      $common{'backbeat.' . $id} = $part;
+      push @parts, 'backbeat.' . $id;
     }
     # FINISH
     $loop->loop_stop if $key->type_is_unicode and
