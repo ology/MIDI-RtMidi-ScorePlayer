@@ -275,8 +275,8 @@ sub play_patch {
       $args{drummer}->$patch
     ) for 1 .. $common{ "$name.repeats.$id" };
   };
-  $common{ "$name.repeats.$id" } = $repeats;
   $common{ "$name.duration.$id" } = $dura;
+  $common{ "$name.repeats.$id" } = $repeats;
   $common{ "$name.$id" } = $part;
   push @parts, "$name.$id";
   snippit($part, \%common);
@@ -291,8 +291,8 @@ sub rest_patch {
     $args{drummer}->rest($args{ "$name.duration.$id" })
       for 1 .. $common{ "$name.repeats.$id" };
   };
-  $common{ "$name.repeats.$id" } = $repeats;
   $common{ "$name.duration.$id" } = $dura;
+  $common{ "$name.repeats.$id" } = $repeats;
   $common{ "$name.$id" } = $part;
   push @parts, "$name.$id";
 }
