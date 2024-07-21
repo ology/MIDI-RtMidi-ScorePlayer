@@ -236,8 +236,9 @@ sub play_patch {
     $args{drummer}->note(
       $args{ "$name.duration.$id" },
       $args{drummer}->$patch
-    );
+    ) for 1 .. $common{ "$name.repeats.$id" };
   };
+  $common{ "$name.repeats.$id" } = $repeats;
   $common{ "$name.duration.$id" } = $dura;
   $common{ "$name.$id" } = $part;
   push @parts, "$name.$id";
@@ -250,8 +251,10 @@ sub rest_patch {
   my $id = time();
   my $part = sub {
     my (%args) = @_;
-    $args{drummer}->rest($args{ "$name.duration.$id" });
+    $args{drummer}->rest($args{ "$name.duration.$id" })
+      for 1 .. $common{ "$name.repeats.$id" };
   };
+  $common{ "$name.repeats.$id" } = $repeats;
   $common{ "$name.duration.$id" } = $dura;
   $common{ "$name.$id" } = $part;
   push @parts, "$name.$id";
