@@ -63,7 +63,7 @@ my $tka  = Term::TermKey::Async->new(
         parts    => $parts,
         sleep    => 0,
         infinite => 0,
-        dump     => 1,
+        # dump     => 1,
       )->play;
     }
     # RESET SCORE
@@ -130,7 +130,7 @@ my $tka  = Term::TermKey::Async->new(
       snippit($part, \%common);
     }
     # HIHAT REST
-    elsif ($pressed eq '<C-h>') {
+    elsif ($pressed eq '<Backspace>') { # same key as <C-h>
       print "Hihat rest\n" if $verbose;
       my $id = time();
       my $part = sub {
