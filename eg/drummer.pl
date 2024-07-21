@@ -324,3 +324,16 @@ sub snippit {
     infinite => 0,
   )->play;
 }
+
+sub rest_patch {
+  my ($name) = @_;
+  print ucfirst($name), " rest\n" if $verbose;
+  my $id = time();
+  my $part = sub {
+    my (%args) = @_;
+    $args{drummer}->rest($args{ "$name.duration.$id" });
+  };
+  $common{ "$name.duration.$id" } = $dura;
+  $common{ "$name.$id" } = $part;
+  push @parts, "$name.$id";
+}
