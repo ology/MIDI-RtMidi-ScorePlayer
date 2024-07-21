@@ -28,7 +28,7 @@ my $tka  = Term::TermKey::Async->new(
     my $pressed = $self->format_key($key, FORMAT_VIM);
     # print "Got key: $pressed\n" if $verbose;
     # PLAY SCORE
-    if ($pressed eq 'p') {
+    if ($pressed eq ' ') {
       print "Play score\n" if $verbose;
       my $d = MIDI::Drummer::Tiny->new(
         bpm  => $bpm,
