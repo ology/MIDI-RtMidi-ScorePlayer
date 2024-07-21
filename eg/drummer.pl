@@ -140,6 +140,49 @@ my $tka  = Term::TermKey::Async->new(
       $common{'hihat.' . $id} = $part;
       push @parts, 'hihat.' . $id;
     }
+    # CRASH
+    elsif ($pressed eq 'a') {
+      print "Crash 1\n" if $verbose;
+      my $id = time();
+      my $part = sub {
+        my (%args) = @_;
+        $args{drummer}->note(
+          $args{'crash1.duration.' . $id},
+          $args{drummer}->crash1
+        );
+      };
+      $common{'crash1.duration.' . $id} = $dura;
+      $common{'crash1.' . $id} = $part;
+      push @parts, 'crash1.' . $id;
+      snippit($part, \%common);
+    }
+    elsif ($pressed eq 'A') {
+      print "Crash 2\n" if $verbose;
+      my $id = time();
+      my $part = sub {
+        my (%args) = @_;
+        $args{drummer}->note(
+          $args{'crash2.duration.' . $id},
+          $args{drummer}->crash2
+        );
+      };
+      $common{'crash2.duration.' . $id} = $dura;
+      $common{'crash2.' . $id} = $part;
+      push @parts, 'crash2.' . $id;
+      snippit($part, \%common);
+    }
+    # HIHAT REST
+    elsif ($pressed eq '<C-a>') {
+      print "Crash rest\n" if $verbose;
+      my $id = time();
+      my $part = sub {
+        my (%args) = @_;
+        $args{drummer}->rest($args{'crash.duration.' . $id});
+      };
+      $common{'crash.duration.' . $id} = $dura;
+      $common{'crash.' . $id} = $part;
+      push @parts, 'crash.' . $id;
+    }
     # KICK
     elsif ($pressed eq 'k') {
       print "Kick\n" if $verbose;
