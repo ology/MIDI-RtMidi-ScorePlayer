@@ -115,6 +115,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # HIHAT
     elsif ($pressed eq 'h') {
+      play_patch('hithat');
       print "Hihat\n" if $verbose;
       my $id = time();
       my $part = sub {
@@ -283,6 +284,23 @@ sub snippit {
     sleep    => 0,
     infinite => 0,
   )->play;
+}
+
+sub play_patch {
+  my ($name, $patch) = @_;
+  print ucfirst($name), "\n" if $verbose;
+  my $id = time();
+  my $part = sub {
+    my (%args) = @_;
+    $args{drummer}->note(
+      $args{ "$name.duration.$id" },
+      $args{drummer}->$patch
+    );
+  };
+  $common{ "$name.duration.$id" } = $dura;
+  $common{ "$name.$id" } = $part;
+  push @parts, "$name.$id";
+  snippit($part, \%common);
 }
 
 sub rest_patch {
