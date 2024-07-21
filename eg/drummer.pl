@@ -174,7 +174,6 @@ my $tka  = Term::TermKey::Async->new(
         my (%args) = @_;
         $args{drummer}->note(
           $args{'backbeat.duration.' . $id},
-          $args{drummer}->open_hh,
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
         ) for 1 .. int($args{drummer}->beats / 2);
       };
