@@ -1,6 +1,8 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+
+0.0119 2024-07-20 19:39:18
     - Add the eg/drummer.pl WIP program.
     - Add a dump flag to dump the score object on each play.
 
