@@ -167,7 +167,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # BASIC BEAT
     elsif ($pressed eq 'x') {
-      print "Backbeat\n" if $verbose;
+      print "Basic ackbeat\n" if $verbose;
       my $id = time();
       my $part = sub {
         my (%args) = @_;
@@ -185,7 +185,7 @@ my $tka  = Term::TermKey::Async->new(
     }
     # DOUBLE KICK BEAT
     elsif ($pressed eq 'X') {
-      print "Backbeat\n" if $verbose;
+      print "Double kick backbeat\n" if $verbose;
       my $id = time();
       my $part = sub {
         my (%args) = @_;
