@@ -169,7 +169,7 @@ my $tka  = Term::TermKey::Async->new(
       $common{'crash1.' . $id} = $part;
       push @parts, 'crash1.' . $id;
     }
-    elsif ($pressed eq 'A') {
+    elsif ($pressed eq 'q') {
       print "Crash 2\n" if $verbose;
       my $id = time();
       my $part = sub {
@@ -185,7 +185,7 @@ my $tka  = Term::TermKey::Async->new(
       snippit($part, \%common);
     }
     # CRASH2 REST
-    elsif ($pressed eq '<C-A>') {
+    elsif ($pressed eq '<C-q>') {
       print "Crash2 rest\n" if $verbose;
       my $id = time();
       my $part = sub {
