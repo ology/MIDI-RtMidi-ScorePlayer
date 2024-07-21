@@ -211,9 +211,9 @@ sub snippit {
   my $d = MIDI::Drummer::Tiny->new(bpm => $bpm);
   $common{drummer} = $d;
   MIDI::RtMidi::ScorePlayer->new(
-    score  => $d->score,
-    common => $common,
-    parts  => [ $part ],
+    score    => $d->score,
+    common   => $common,
+    parts    => [ $part ],
     sleep    => 0,
     infinite => 0,
   )->play;
