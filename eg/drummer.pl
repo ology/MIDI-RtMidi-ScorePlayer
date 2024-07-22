@@ -68,6 +68,7 @@ my $tka  = Term::TermKey::Async->new(
     # RESET SCORE
     elsif ($pressed eq 'r') {
       print "Reset score\n" if $verbose;
+      ($bpm, $dura, $mode, $repeats) = (100, 'qn', 'serial', 1);
       %common = ();
       @parts  = ();
     }
