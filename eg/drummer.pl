@@ -26,11 +26,11 @@ my $tka  = Term::TermKey::Async->new(
     my ($self, $key) = @_;
     my $pressed = $self->format_key($key, FORMAT_VIM);
     # print "Got key: $pressed\n" if $verbose;
-    # PLAY SCORE
-    # SERIAL MODE
+    # HELP
     if ($pressed eq '?') {
       print "State: BPM=$bpm, Duration=$dura, Mode=$mode, Repeats=$repeats\n";
     }
+    # PLAY SCORE
     elsif ($pressed eq ' ') {
       print "Play score\n" if $verbose;
       my $d = MIDI::Drummer::Tiny->new(
