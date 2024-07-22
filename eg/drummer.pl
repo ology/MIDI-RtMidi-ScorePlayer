@@ -194,42 +194,47 @@ my $tka  = Term::TermKey::Async->new(
     }
     # BASIC BEAT
     elsif ($pressed eq 'x') {
-      print "Basic backbeat\n" if $verbose;
+      my $name = 'backbeat';
+      print "Basic $name\n" if $verbose;
       my $id = time();
       my $part = sub {
         my (%args) = @_;
         $args{drummer}->note(
-          $args{'backbeat.duration.' . $id},
+          $args{ "$name.duration.$id" },
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
         ) for 1 .. int($args{drummer}->beats / 2);
       };
-      $common{'backbeat.duration.' . $id} = $dura;
-      $common{'backbeat.' . $id} = $part;
-      push @parts, 'backbeat.' . $id;
+      $common{ "$name.duration.$id" } = $dura;
+      $common{ "$name.repeats.$id" } = $repeats;
+      $common{ "$name.$id" } = $part;
+      push @parts, "$name.$id";
       snippit($part, \%common);
     }
     # BASIC BEAT REST
     elsif ($pressed eq '<C-x>') {
-      print "Basic backbeat rest\n" if $verbose;
+      my $name = 'backbeat';
+      print "Basic $name rest\n" if $verbose;
       my $id = time();
       my $part = sub {
         my (%args) = @_;
-        my $size = dura_size($args{'backbeat.duration.' . $id});
+        my $size = dura_size($args{ "$name.duration.$id" });
         my $x = $size * 2;
         my $twice = reverse_dump('length')->{$x};
         $args{drummer}->rest($twice);
       };
-      $common{'backbeat.duration.' . $id} = $dura;
-      $common{'backbeat.' . $id} = $part;
-      push @parts, 'backbeat.' . $id;
+      $common{ "$name.duration.$id" } = $dura;
+      $common{ "$name.repeats.$id" } = $repeats;
+      $common{ "$name.$id" } = $part;
+      push @parts, "$name.$id";
     }
     # DOUBLE KICK BEAT
     elsif ($pressed eq 'X') {
-      print "Double kick backbeat\n" if $verbose;
+      my $name = 'backbeat';
+      print "Double kick $name\n" if $verbose;
       my $id = time();
       my $part = sub {
         my (%args) = @_;
-        my $size = dura_size($args{'backbeat.duration.' . $id});
+        my $size = dura_size($args{ "$name.duration.$id" });
         my $x = $size / 2;
         my $half = reverse_dump('length')->{$x};
         $args{drummer}->note($half, $args{drummer}->kick);
@@ -237,9 +242,10 @@ my $tka  = Term::TermKey::Async->new(
         $args{drummer}->note($half, $args{drummer}->snare);
         $args{drummer}->rest($half);
       };
-      $common{'backbeat.duration.' . $id} = $dura;
-      $common{'backbeat.' . $id} = $part;
-      push @parts, 'backbeat.' . $id;
+      $common{ "$name.duration.$id" } = $dura;
+      $common{ "$name.repeats.$id" } = $repeats;
+      $common{ "$name.$id" } = $part;
+      push @parts, "$name.$id";
       snippit($part, \%common);
     }
     # FINISH
