@@ -202,7 +202,7 @@ my $tka  = Term::TermKey::Async->new(
         $args{drummer}->note(
           $args{ "$name.duration.$id" },
           $_ % 2 ? $args{drummer}->kick : $args{drummer}->snare
-        ) for 1 .. int($args{drummer}->beats / 2);
+        ) for 1 .. int($args{drummer}->beats / 2) * $common{ "$name.repeats.$id" };
       };
       $common{ "$name.duration.$id" } = $dura;
       $common{ "$name.repeats.$id" } = $repeats;
