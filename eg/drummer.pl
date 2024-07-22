@@ -101,42 +101,42 @@ my $tka  = Term::TermKey::Async->new(
     # ONE REPEAT
     elsif ($pressed eq '!') {
       $repeats = 1;
-      print "Repeat: $repeats\n" if $verbose;
+      print "Repeats: $repeats\n" if $verbose;
     }
     # TWO REPEATS
     elsif ($pressed eq '@') {
       $repeats = 2;
-      print "Repeat: $repeats\n" if $verbose;
+      print "Repeats: $repeats\n" if $verbose;
     }
     # THREE REPEATS
     elsif ($pressed eq '#') {
       $repeats = 3;
-      print "Repeat: $repeats\n" if $verbose;
+      print "Repeats: $repeats\n" if $verbose;
     }
     # FOUR REPEATS
     elsif ($pressed eq '$') {
       $repeats = 4;
-      print "Repeat: $repeats\n" if $verbose;
+      print "Repeats: $repeats\n" if $verbose;
     }
     # FIVE REPEATS
     elsif ($pressed eq '%') {
       $repeats = 5;
-      print "Repeat: $repeats\n" if $verbose;
+      print "Repeats: $repeats\n" if $verbose;
     }
     # SIX REPEATS
     elsif ($pressed eq '^') {
       $repeats = 6;
-      print "Repeat: $repeats\n" if $verbose;
+      print "Repeats: $repeats\n" if $verbose;
     }
     # SEVEN REPEATS
     elsif ($pressed eq '&') {
       $repeats = 7;
-      print "Repeat: $repeats\n" if $verbose;
+      print "Repeats: $repeats\n" if $verbose;
     }
     # EIGHT REPEATS
     elsif ($pressed eq '*') {
       $repeats = 8;
-      print "Repeat: $repeats\n" if $verbose;
+      print "Repeats: $repeats\n" if $verbose;
     }
     # SIXTEENTH
     elsif ($pressed eq '2') {
