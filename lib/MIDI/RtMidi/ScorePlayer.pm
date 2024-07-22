@@ -2,7 +2,7 @@ package MIDI::RtMidi::ScorePlayer;
 
 # ABSTRACT: Play a MIDI score in real-time
 
-our $VERSION = '0.0119';
+our $VERSION = '0.0120';
 
 use strict;
 use warnings;
