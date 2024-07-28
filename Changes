@@ -1,6 +1,8 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+
+0.0200 2024-07-28 10:07:28
     - Allow sequencing of single parts (not multitrack).
     - Refactor the eg/* programs a bit for this change.
     - Skip all tests because many cpantesters do not have an audio device to fire-up.
