@@ -10,7 +10,7 @@ use warnings;
 use Data::Dumper::Compact qw(ddc);
 use File::Basename qw(fileparse);
 use MIDI::RtMidi::FFI::Device ();
-use MIDI::Util qw(get_microseconds score2events);
+use MIDI::Util qw(dura_size get_microseconds score2events set_chan_patch ticks);
 use Path::Tiny qw(path);
 use Time::HiRes qw(time usleep);
 
@@ -37,12 +37,17 @@ use Time::HiRes qw(time usleep);
       return $treble;
   }
   sub bass {
+      my (%args) = @_;
+      $common{'tick.durations'} = [ ('hn') x 4 ]; # for a silent companion part
+      my $bass = sub {
       ...; # As above but different!
+      };
+      return $bass;
   }
 
   MIDI::RtMidi::ScorePlayer->new(
       score    => $score, # required MIDI score object
-      parts    => [ \&treble, \&bass ], # required part functions
+      parts    => [ \&bass, [ \&treble, \&bass ], \&bass ], # required part functions
       common   => \%common, # arguments given to the part functions
       repeats  => 4, # number of repeated synched parts (default: 1)
       sleep    => 2, # number of seconds to sleep between loops (default: 1)
@@ -71,6 +76,13 @@ the B<new> parameters that are described in the example above.
 
 If you wish to set the patch or channel for a part, do so B<inside>
 the scope of the coderef that is returned by the part.
+
+If you wish to play a I<single> part, include it in the B<parts> list
+by itself (i.e. not with any other tracks), AND tell
+C<MIDI::RtMidi::ScorePlayer> how long (in musical durations) the part
+is, by adding C<tick.durations> to the B<common> set of part arguments.
+To play multiple parts simultaneously, add them to an array reference
+in the B<parts> list.
 
 =head2 Hints
 
@@ -104,7 +116,7 @@ sub new {
 
     die 'A MIDI score object is required' unless $opts{score};
     die 'A list of parts is required'
-        unless $opts{parts} && grep { ref eq 'CODE' } @{ $opts{parts} };
+        unless $opts{parts} && ref $opts{parts} eq 'ARRAY';
 
     $opts{common}   ||= {};
     $opts{repeats}  ||= 1;
@@ -150,7 +162,16 @@ sub play {
 
 sub _play {
     my ($self) = @_;
-    $self->_sync_parts;
+    for my $n (1 .. $self->{repeats}) {
+        for my $p (@{ $self->{parts} }) {
+            if (ref($p) eq 'ARRAY') {
+                $self->_sync_parts($p);
+            }
+            else {
+                $self->_play_part($p, $n);
+            }
+        }
+    }
     print ddc($self->{score}) if $self->{dump};
     my $micros = get_microseconds($self->{score});
     my $events = score2events($self->{score});
@@ -185,15 +206,40 @@ sub _reset_score {
         if exists $self->{common}{seen};
 }
 
+sub _tick {
+    my ($self, %args) = @_;
+    return sub {} unless $args{'tick.durations'};
+    my $sum = 0;
+    for my $duration (@{ $args{'tick.durations'} }) {
+        $sum += dura_size($duration);
+    }
+    my $ticks = ticks($self->{score});
+    my $tick = sub {
+        set_chan_patch($self->{score}, 9, 0);
+        my $vol = $self->{score}->Volume;
+        $self->{score}->Volume(0);
+        $self->{score}->n('d' . $ticks, 33) for 1 .. $sum;
+        $self->{score}->Volume($vol);
+    };
+    return $tick;
+}
+
+sub _play_part {
+    my ($self, $p, $n) = @_;
+    $n //= 1;
+    my $part = $p->(%{ $self->{common} }, _part => $n);
+    my $tick = $self->_tick(%{ $self->{common} });
+    $self->{score}->synch($tick, $part);
+}
+
 # Build the code-ref MIDI of all parts to be played
 sub _sync_parts {
-    my ($self) = @_;
+    my ($self, $p) = @_;
     my @parts;
     my $n = 1;
     push @parts, $_->(%{ $self->{common} }, _part => $n++)
-        for @{ $self->{parts} };
-    $self->{score}->synch(@parts) # Play the parts simultaneously
-        for 1 .. $self->{repeats};
+        for @$p;
+    $self->{score}->synch(@parts); # Play the parts simultaneously
 }
 
 1;
