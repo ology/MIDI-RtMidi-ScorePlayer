@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Forgot to update the eg/gol.pl program parts. Whoops
 
 0.0200 2024-07-28 10:07:28
     - Allow sequencing of single parts (not multitrack).
