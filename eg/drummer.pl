@@ -63,7 +63,7 @@ my $tka  = Term::TermKey::Async->new(
       MIDI::RtMidi::ScorePlayer->new(
         score    => $d->score,
         common   => \%common,
-        parts    => $parts,
+        parts    => [ $parts ],
         sleep    => 0,
         infinite => 0,
         # dump     => 1,
