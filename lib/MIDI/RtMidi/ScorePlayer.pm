@@ -54,7 +54,7 @@ use Time::HiRes qw(time usleep);
       loop     => 4, # loop limit if finite (default: 1)
       infinite => 0, # loop infinitely (default: 1)
       deposit  => 'path/prefix-', # optionally make a file after each loop
-      vebose   => 0, # print out text events (default: 0)
+      verbose  => 0, # print out text events (default: 0)
       dump     => 0, # dump the score before each play (default: 0)
   )->play;
 
