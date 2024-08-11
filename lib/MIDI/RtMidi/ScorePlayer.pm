@@ -21,24 +21,29 @@ use Time::HiRes qw(time usleep);
 
   my $score = setup_score();
 
+  # arguments given to the part functions
   my %common = (score => $score, seen => {}, etc => '...',);
 
+  # 2 measure parts
   sub treble {
       my (%args) = @_;
       ...; # Setup things
       my $treble = sub {
-          if ($args{_part} % 2) {
-              $args{score}->n('...');
-          }
-          else {
-              $args{score}->r('...');
+          for my $i (1 .. 8) {
+              if ($i % 2) {
+                  $args{score}->n('qn', '...');
+              }
+              else {
+                  $args{score}->r('qn', '...');
+              }
           }
       };
       return $treble;
   }
   sub bass {
       my (%args) = @_;
-      $common{'tick.durations'} = [ ('hn') x 4 ]; # for a silent companion part
+      # to play alone, this is needed:
+      $common{'tick.durations'} = [ ('hn') x 4 ];
       my $bass = sub {
       ...; # As above but different!
       };
