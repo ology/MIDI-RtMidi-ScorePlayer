@@ -168,11 +168,12 @@ Play a given MIDI score in real-time.
 async sub play {
     my ($self) = @_;
     if ($self->{infinite}) {
-        while (1) { $self->_play }
+        while (1) { await $self->_play }
     }
     else {
-        my $play = async sub { await $self->_play };
-        $play->() for 1 .. $self->{loop};
+        for my $i (1 .. $self->{loop}) {
+            await $self->_play;
+        }
     }
 }
 
