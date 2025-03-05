@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 
+use Future::AsyncAwait;
 use Game::RockPaperScissorsLizardSpock qw(rpsls);
 use MIDI::RtMidi::ScorePlayer ();
 use MIDI::Util qw(setup_score set_chan_patch);
@@ -19,12 +20,13 @@ if (my $result = rpsls($choice)) {
 
     my $score = setup_score(lead_in => 0);
     my %common = (score => $score, choice => $choice, result => $result);
-    MIDI::RtMidi::ScorePlayer->new(
+    await MIDI::RtMidi::ScorePlayer->new(
       score    => $score,
       parts    => [ \&part ],
       common   => \%common,
       sleep    => 0,
       infinite => 0,
+      port     => qr/fluid/i,
     )->play;
 }
 
