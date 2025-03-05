@@ -16,7 +16,7 @@ my %common = (score => $score);
 my $loop = IO::Async::Loop->new;
 
 # Start player
-my $sp = MIDI::RtMidi::ScorePlayer->new(
+MIDI::RtMidi::ScorePlayer->new(
     score    => $score,
     parts    => [ \&part ],
     common   => \%common,
