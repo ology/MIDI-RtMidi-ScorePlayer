@@ -23,7 +23,7 @@ MIDI::RtMidi::ScorePlayer->new(
     sleep    => 0,
     infinite => 1,
     port     => qr/fluid|gs/i,
-)->play_f; # Don't bother with await, just let it play
+)->play_f->retain; # Don't bother with await, just let it play
 
 sub part {
     my (%args) = @_;
