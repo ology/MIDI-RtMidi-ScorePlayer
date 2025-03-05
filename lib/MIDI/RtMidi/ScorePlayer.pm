@@ -14,6 +14,7 @@ use Future::IO;
 use MIDI::RtMidi::FFI::Device ();
 use MIDI::Util qw(dura_size get_microseconds score2events set_chan_patch ticks);
 use Path::Tiny qw(path);
+use Time::HiRes qw(time);
 
 =head1 SYNOPSIS
 
