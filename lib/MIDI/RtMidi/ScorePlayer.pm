@@ -14,7 +14,6 @@ use Future::IO;
 use MIDI::RtMidi::FFI::Device ();
 use MIDI::Util qw(dura_size get_microseconds score2events set_chan_patch ticks);
 use Path::Tiny qw(path);
-use Time::HiRes qw(time);
 
 =head1 SYNOPSIS
 
@@ -168,11 +167,11 @@ Play a given MIDI score in real-time.
 async sub play {
     my ($self) = @_;
     if ($self->{infinite}) {
-        while (1) { await $self->_play }
+        while (1) { $self->_play->await }
     }
     else {
         for my $i (1 .. $self->{loop}) {
-            await $self->_play;
+            $self->_play->await;
         }
     }
 }
