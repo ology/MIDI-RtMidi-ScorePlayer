@@ -12,7 +12,9 @@ use File::Basename qw(fileparse);
 use MIDI::RtMidi::FFI::Device ();
 use MIDI::Util qw(dura_size get_microseconds score2events set_chan_patch ticks);
 use Path::Tiny qw(path);
-use Time::HiRes qw(time usleep);
+use Time::HiRes qw(time);
+use Future::IO ();
+use Future::AsyncAwait;
 
 =head1 SYNOPSIS
 
@@ -166,14 +168,26 @@ Play a given MIDI score in real-time.
 sub play {
     my ($self) = @_;
     if ($self->{infinite}) {
-        while (1) { $self->_play }
+        while (1) { $self->_play->await }
     }
     else {
-        $self->_play for 1 .. $self->{loop};
+        $self->_play->await for 1 .. $self->{loop};
     }
 }
 
-sub _play {
+async sub play_f {
+    my ($self) = @_;
+    if ($self->{infinite}) {
+        while (1) { await $self->_play }
+    }
+    else {
+        for my $i ( 1 .. $self->{loop} ) {
+            await $self->_play;
+        }
+    }
+}
+
+async sub _play {
     my ($self) = @_;
     for my $n (1 .. $self->{repeats}) {
         for my $p (@{ $self->{parts} }) {
@@ -195,14 +209,14 @@ sub _play {
             next;
         }
         my $useconds = $micros * $event->[1];
-        usleep($useconds) if $useconds > 0 && $useconds < 1_000_000;
+        await Future::IO->sleep( $useconds / 1_000_000 ) if $useconds > 0 && $useconds < 1_000_000;
         $self->{device}->send_event($event->[0] => @{ $event }[ 2 .. $#$event ]);
     }
     if ($self->{deposit}) {
         my $filename = path($self->{path}, $self->{prefix} . time() . '.midi');
         $self->{score}->write_score("$filename");
     }
-    sleep($self->{sleep});
+    await Future::IO->sleep( $self->{sleep} );
     $self->_reset_score;
 }
 
