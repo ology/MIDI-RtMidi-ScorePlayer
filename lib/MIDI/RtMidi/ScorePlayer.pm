@@ -183,7 +183,7 @@ sub play {
 
 =head2 play_async
 
-Play a given MIDI score asychronously.
+Play a given MIDI score asynchronously.
 
 =cut
 
