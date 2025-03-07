@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Add asynchronous execution.
 
 0.0206 2025-03-01 18:22:40
     - Remove debugging code.
