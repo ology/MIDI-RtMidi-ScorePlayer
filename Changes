@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Add asynchronous execution. fuzzix++
 
 0.0208 2025-03-04 15:17:13
     - Stuopid, misleading typo in the synopsis code. :(
