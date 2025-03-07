@@ -138,6 +138,7 @@ sub new {
     $opts{infinite} //= 1;
     $opts{verbose}  //= 0;
     $opts{dump}     //= 0;
+    $opts{overlap}  //= 0;
     $opts{deposit}  ||= '';
 
     if ($opts{deposit}) {
@@ -169,8 +170,17 @@ sub play {
     shift->play_f->await;
 }
 
+# readonly status
+sub playing {
+    !!shift->{playing};
+}
+
 async sub play_f {
     my ($self) = @_;
+
+    return if $self->playing && !$self->{overlap};
+    $self->{playing} = 1;
+
     if ($self->{infinite}) {
         while (1) { await $self->_play }
     }
@@ -179,6 +189,8 @@ async sub play_f {
             await $self->_play;
         }
     }
+
+    $self->{playing} = 0;
 }
 
 async sub _play {
