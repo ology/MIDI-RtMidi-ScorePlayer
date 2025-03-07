@@ -71,7 +71,7 @@ use Time::HiRes qw(time);
       device   => $midi_output, # optional existing object
   )->play; # <- blocking
 
-  # OR asynchronously:
+  # OR play asynchronously:
   MIDI::RtMidi::ScorePlayer->new->play_async->retain;
 
 =head1 DESCRIPTION
