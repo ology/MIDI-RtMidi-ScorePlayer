@@ -10,7 +10,7 @@ use MIDI::Util qw(setup_score set_chan_patch);
 
 my $score = setup_score(lead_in => 0);
 my %common = (score => $score);
-await MIDI::RtMidi::ScorePlayer->new(
+MIDI::RtMidi::ScorePlayer->new(
     score    => $score,
     parts    => [ \&part ],
     common   => \%common,
