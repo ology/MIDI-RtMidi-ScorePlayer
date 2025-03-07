@@ -56,7 +56,7 @@ use Time::HiRes qw(time);
   use MIDI::RtMidi::FFI::Device ();
   my $midi_output = RtMidiOut->new;
 
-  MIDI::RtMidi::ScorePlayer->new(
+  my $sp = MIDI::RtMidi::ScorePlayer->new(
       score    => $score, # required MIDI score object
       parts    => [ \&bass, [ \&treble, \&bass ], \&bass ], # required part functions
       common   => \%common, # arguments given to the part functions
@@ -69,10 +69,11 @@ use Time::HiRes qw(time);
       dump     => 0, # dump the score before each play (default: 0)
       port     => qr/iac/i,     # optional non-existing device
       device   => $midi_output, # optional existing object
-  )->play; # <- blocking
+  );
 
-  # OR play asynchronously:
-  MIDI::RtMidi::ScorePlayer->new->play_async->retain;
+  $sp->play; # <- blocking
+  # Or play asynchronously:
+  $sp->play_async->retain;
 
 =head1 DESCRIPTION
 
