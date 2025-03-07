@@ -18,6 +18,7 @@ use Time::HiRes qw(time);
 
 =head1 SYNOPSIS
 
+  use Future::IO::Impl::IOAsync;
   use MIDI::RtMidi::ScorePlayer ();
   use MIDI::Util qw(setup_score);
 
