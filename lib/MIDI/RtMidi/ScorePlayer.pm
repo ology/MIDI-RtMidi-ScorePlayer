@@ -165,7 +165,7 @@ Play a given MIDI score in real-time.
 
 =cut
 
-async sub play {
+sub play {
     my ($self) = @_;
     if ($self->{infinite}) {
         while (1) { $self->_play->await }
@@ -173,6 +173,19 @@ async sub play {
     else {
         for my $i (1 .. $self->{loop}) {
             $self->_play->await;
+        }
+    }
+}
+
+# the Future-returning async method
+async sub play_async {
+    my ($self) = @_;
+    if ($self->{infinite}) {
+        while (1) { await $self->_play }
+    }
+    else {
+        for my $i ( 1 .. $self->{loop} ) {
+            await $self->_play;
         }
     }
 }
