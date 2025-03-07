@@ -20,7 +20,7 @@ if (my $result = rpsls($choice)) {
 
     my $score = setup_score(lead_in => 0);
     my %common = (score => $score, choice => $choice, result => $result);
-    await MIDI::RtMidi::ScorePlayer->new(
+    MIDI::RtMidi::ScorePlayer->new(
       score    => $score,
       parts    => [ \&part ],
       common   => \%common,
