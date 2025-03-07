@@ -71,7 +71,7 @@ use Time::HiRes qw(time);
       device   => $midi_output, # optional existing object
   );
 
-  $sp->play; # <- blocking
+  $sp->play; # blocking
   # Or play asynchronously:
   $sp->play_async->retain;
 
