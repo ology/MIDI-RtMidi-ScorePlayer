@@ -69,7 +69,10 @@ use Time::HiRes qw(time);
       dump     => 0, # dump the score before each play (default: 0)
       port     => qr/iac/,      # optional non-existing device
       device   => $midi_output, # optional existing object
-  )->play;
+  )->play; # <- blocking
+
+  # OR asynchronously:
+  MIDI::RtMidi::ScorePlayer->new->play_async->retain;
 
 =head1 DESCRIPTION
 
@@ -176,6 +179,13 @@ sub play {
         }
     }
 }
+
+
+=head2 play_async
+
+Play a given MIDI score asychronously.
+
+=cut
 
 # the Future-returning async method
 async sub play_async {
