@@ -166,13 +166,7 @@ Play a given MIDI score in real-time.
 =cut
 
 sub play {
-    my ($self) = @_;
-    if ($self->{infinite}) {
-        while (1) { $self->_play->await }
-    }
-    else {
-        $self->_play->await for 1 .. $self->{loop};
-    }
+    shift->play_f->await;
 }
 
 async sub play_f {
