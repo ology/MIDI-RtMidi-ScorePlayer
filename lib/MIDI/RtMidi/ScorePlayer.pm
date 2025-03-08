@@ -65,6 +65,7 @@ use Time::HiRes qw(time);
       sleep    => 2, # number of seconds to sleep between loops (default: 1)
       loop     => 4, # loop limit if finite (default: 1)
       infinite => 0, # loop infinitely (default: 1)
+      overlap  => 0, # allow overlapping scores to be played
       deposit  => 'path/prefix-', # optionally make a file after each loop
       verbose  => 0, # print out text events (default: 0)
       dump     => 0, # dump the score before each play (default: 0)
@@ -141,6 +142,7 @@ sub new {
     $opts{sleep}    //= 1;
     $opts{loop}     ||= 1;
     $opts{infinite} //= 1;
+    $opts{overlap}  //= 0;
     $opts{verbose}  //= 0;
     $opts{dump}     //= 0;
     $opts{deposit}  ||= '';
@@ -171,17 +173,13 @@ Play a given MIDI score in real-time.
 =cut
 
 sub play {
-    my ($self) = @_;
-    if ($self->{infinite}) {
-        while (1) { $self->_play->await }
-    }
-    else {
-        for my $i (1 .. $self->{loop}) {
-            $self->_play->await;
-        }
-    }
+    shift->play_async->await;
 }
 
+# readonly status
+sub _is_playing {
+    !!shift->{playing};
+}
 
 =head2 play_async
 
@@ -192,6 +190,10 @@ Play a given MIDI score asynchronously.
 # the Future-returning async method
 async sub play_async {
     my ($self) = @_;
+
+    return if $self->_is_playing && !$self->{overlap};
+    $self->{playing} = 1;
+
     if ($self->{infinite}) {
         while (1) { await $self->_play }
     }
@@ -200,6 +202,8 @@ async sub play_async {
             await $self->_play;
         }
     }
+
+    $self->{playing} = 0;
 }
 
 async sub _play {
