@@ -1,10 +1,11 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Improve documentation.
+    - Add the overlap attribute to allow/prevent simultaneous play.
 
 0.0301 2025-03-07 12:02:43
     - Improve documentation.
-    - Add the overlap attribute to allow/prevent simultaneous play.
 
 0.0300 2025-03-07 11:43:28
     - Add asynchronous execution. fuzzix++
