@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-# this code is used to test asynchronous control with a system virtual driver
+# this code tests asynchronous control
 
 use strict;
 use warnings;
