@@ -1,6 +1,7 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+    - Thanks POD.
 
 0.0302 2025-03-08 12:50:52
     - Improve documentation.
