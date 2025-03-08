@@ -10,7 +10,7 @@ use warnings;
 use Data::Dumper::Compact qw(ddc);
 use File::Basename qw(fileparse);
 use Future::AsyncAwait;
-use Future::IO;
+use Future::IO ();
 use MIDI::RtMidi::FFI::Device ();
 use MIDI::Util qw(dura_size get_microseconds score2events set_chan_patch ticks);
 use Path::Tiny qw(path);
