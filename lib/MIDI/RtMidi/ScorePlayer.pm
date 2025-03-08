@@ -295,8 +295,6 @@ __END__
 
 Examples are the F<eg/*> files in this distribution.
 
-Also check out the F<t/01-methods.t> file for basic usage.
-
 L<MIDI::RtMidi::FFI::Device>
 
 L<MIDI::Util>
