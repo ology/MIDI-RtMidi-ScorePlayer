@@ -291,6 +291,11 @@ sub _sync_parts {
 1;
 __END__
 
+=head1 THANK YOU
+
+This code would not exist without the help of CPAN's JBARRETT (John
+Barrett AKA fuzzix).
+
 =head1 SEE ALSO
 
 Examples are the F<eg/*> files in this distribution.
