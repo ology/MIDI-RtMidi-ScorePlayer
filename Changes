@@ -1,6 +1,8 @@
 Revision history for MIDI-RtMidi-ScorePlayer
 
 {{$NEXT}}
+
+0.0302 2025-03-08 12:50:52
     - Improve documentation.
     - Add the overlap attribute to allow/prevent simultaneous play.
 
